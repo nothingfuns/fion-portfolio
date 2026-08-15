@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>66 Days — Case Study — Fion</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="site-header" id="site-header" data-active=""></header>
+
+<main>
+  <section class="case-hero">
+    <div class="case-hero-bg" style="background-image:url('../assets/images/hero-mockup.png'); background-color:#151517;"></div>
+    <div class="container">
+      <h1 class="case-title">66 Days</h1>
+      <p class="case-subtitle">Designing a low-friction budgeting app that turns finance tracking into a 66-day habit journey for Singaporean students.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><div class="meta-label">Role</div><div class="meta-value">Frontend Developer, Designer</div></div>
+        <div class="meta-item"><div class="meta-label">Team</div><div class="meta-value">5 members</div></div>
+        <div class="meta-item"><div class="meta-label">Timeframe</div><div class="meta-value">4 months · HCI + AI module</div></div>
+        <div class="meta-item"><div class="meta-label">Tools</div><div class="meta-value">Figma · React Native · Firebase</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="container">
+      <h2 class="case-section-title">The Problem</h2>
+      <div class="problem-box">
+        <div class="problem-label">THE CHALLENGE</div>
+        <p>Many Singaporean students struggle to build consistent budgeting habits due to tedious manual logging and irregular spending patterns. Most give up within the first 1–2 weeks — not from lack of intent, but too much friction.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="container">
+      <h2 class="case-section-title">The Solution</h2>
+      <div class="case-body">
+        <p>A low-friction budgeting app that turns financial tracking into a <strong>66-day habit journey</strong> — the psychological threshold for a new behaviour to become automatic. Three core ideas reduce drop-off:</p>
+      </div>
+      <div class="subsection">
+        <ul>
+          <li><strong>66-Day Habit Tracker</strong> — a compact progress bar showing "XX/66 days" that makes the goal concrete and near.</li>
+          <li><strong>QR Receipt Sharing</strong> — after a PayNow / PayLah payment, tap "Share with 66 Days" to auto-log the expense in the background.</li>
+          <li><strong>Fun Budget</strong> — a per-entry toggle that marks any spending as guilt-free social spending, so students never feel punished for enjoying university life.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="container">
+      <h2 class="case-section-title">Understanding Our Users</h2>
+      <div class="pair-grid">
+        <div class="pair-card">
+          <h4>Primary Users</h4>
+          <p>Students new to budgeting, and students who previously tried and gave up within the first 1–2 weeks, overspending past their budget.</p>
+        </div>
+        <div class="pair-card">
+          <h4>Top Needs</h4>
+          <p>Simple, low-effort logging. A guilt-free way to spend socially. A clear sense of progress without overwhelming features.</p>
+        </div>
+      </div>
+
+      <div class="subsection" style="max-width:760px;">
+        <div class="timeline-card" style="margin-top:8px;">
+          <div class="timeline-role">Matthew Toh, 22</div>
+          <div class="timeline-place">Business Undergraduate · NTU Hall Resident</div>
+          <p style="color:var(--accent);font-style:italic;margin:10px 0 14px;">"I want to make new friends and learn to be more responsible."</p>
+          <p style="color:var(--text-dim);margin-bottom:14px;">Matthew is a sociable business student living in NTU hall. He values social connection — meals out, dance activities, gaming with friends — but is new to managing his own finances. He pays via PayNow but regularly forgets to log expenses, and occasional splurges spiral into guilt that causes him to abandon tracking entirely.</p>
+          <ul>
+            <li>Manual logging feels tedious, especially when rushing between classes or socialising.</li>
+            <li>Small purchases — snacks, drinks — often go untracked because they seem too minor.</li>
+            <li>Occasional splurges trigger guilt and cause him to abandon the app altogether.</li>
+            <li>Most budgeting apps have too many features, adding cognitive load instead of reducing it.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="trio-grid" style="margin-top:30px;">
+        <div class="trio-card">
+          <h4>Scenario 01 — Fun Budget & Habit Tracker</h4>
+          <p>It's midnight. Before joining friends at Hai Di Lao, Matthew checks his Fun Budget — Day 7/66, still on track for the PC component he's saving for. He decides to skip supper.</p>
+        </div>
+        <div class="trio-card">
+          <h4>Scenario 02 — Logging Income</h4>
+          <p>Matthew gets paid for a weekend event job. He opens 66 Days, taps the Income box on the home page, logs $200, and watches his income balance grow.</p>
+        </div>
+        <div class="trio-card">
+          <h4>Scenario 03 — QR Code to App Sharing</h4>
+          <p>After paying at the canteen via PayNow, Matthew taps "Share with 66 Days" to auto-log the expense. He opens the app later to review and approve the pending transaction.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="container">
+      <h2 class="case-section-title">Problem Framing</h2>
+      <div class="problem-box">
+        <div class="problem-label">THE INITIAL CONCEPT</div>
+        <p>Our original design included gamification, streaks, and a social feature. User testing and presentation feedback revealed three gaps in our concept.</p>
+      </div>
+      <div class="trio-grid" style="margin-top:24px;">
+        <div class="trio-card">
+          <h4>Overcomplicated</h4>
+          <p>The app was too complex to explain quickly — first-week users felt overwhelmed by the number of screens and features.</p>
+        </div>
+        <div class="trio-card">
+          <h4>Wrong Drop-off Fix</h4>
+          <p>Features addressed retention, but not the real drop-off point — habit formation in weeks one through three.</p>
+        </div>
+        <div class="trio-card">
+          <h4>Wrong Motivation</h4>
+          <p>Users weren't motivated by streaks or badges. What worked was ease and a guilt-free way to handle flexible spending.</p>
+        </div>
+      </div>
+
+      <div class="image-grid cols-2">
+        <div class="img-placeholder">Lo-fi paper prototype used for heuristic evaluation</div>
+        <div class="img-placeholder">Initial navigation diagram</div>
+      </div>
+
+      <div class="quote-block" style="margin-top:44px;">
+        <p class="quote">"How might we help new users build consistent budgeting habits — especially in the first 2–3 weeks, where most drop off?"</p>
+        <p class="quote-cite">Final problem statement — reframed after heuristic evaluation and user testing</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="container">
+      <h2 class="case-section-title">What We Kept — and Why</h2>
+      <div class="subsection" style="margin-top:0;">
+        <ul>
+          <li><strong>Fun Budget</strong> (formerly Splurge Meter) — converted from a locked category to a per-entry toggle. Any expense in any category can be tagged as Fun Budget, with a lively meter that makes flexible spending feel intentional, not shameful.</li>
+          <li><strong>QR Receipt Sharing</strong> — approvals grouped by date with a clear "Pending" badge. The entire row is now the tap target for editing, replacing a tiny pencil icon that caused missed taps.</li>
+          <li><strong>66-Day Habit Tracker</strong> — defaults to a weekly snapshot with a compact "XX/66 days" goal line. The full 66-day timeline is reachable via swipe-down, reducing visual noise while keeping the long horizon accessible.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="container">
+      <h2 class="case-section-title">Process Highlights</h2>
+
+      <div class="subsection" style="margin-top:0;">
+        <h4>1 — Research & Heuristic Evaluation</h4>
+        <p style="color:var(--text-dim);max-width:76ch;margin:0 auto 16px;">Peer interviews with 5 users and competitor scans fed into a full heuristic evaluation against Nielsen's 10 principles.</p>
+        <ul>
+          <li>Cluttered home screen and confusing social feature violated H8 (minimalist design).</li>
+          <li>"Daily Budget" locked spending but stayed static — violated H2 (match with the real world).</li>
+          <li>The "Splurge Meter" label was unclear and carried negative connotations, violating H1 and H4.</li>
+          <li>Ambiguous Add / Done / ✓ button labels caused errors, violating H6 (recognition over recall).</li>
+        </ul>
+      </div>
+
+      <div class="image-grid" style="margin-top:30px;">
+        <div class="img-placeholder">Homepage before &amp; after</div>
+        <div class="img-placeholder">Removed Splurge Meter for clearer Fun Budget flow</div>
+        <div class="img-placeholder">Iterations of the Add Expense page</div>
+      </div>
+
+      <div class="pair-grid" style="margin-top:36px;">
+        <div class="pair-card">
+          <h4>Pivot over Restart</h4>
+          <p>Weighed starting from scratch versus pivoting, and chose a focused pivot to maximise the remaining 2–3 month build window without sacrificing core UX quality.</p>
+        </div>
+        <div class="pair-card">
+          <h4>Simplicity over Feature-Richness</h4>
+          <p>Cut secondary gamification (streaks, badges) to prioritise a clean, low-friction entry flow for first-time users.</p>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h4>2 — Design Decisions</h4>
+        <p style="color:var(--text-dim);max-width:76ch;margin:0 auto 16px;">Flows were re-evaluated against first-week use. An online within-subject study with 20 students compared the Fun Budget as a toggle versus a standalone category.</p>
+        <ul>
+          <li><strong>3-screen navigation:</strong> simplified the core flow to Home, Transactions, and Statistics to eliminate menu nesting.</li>
+          <li>Moved the floating "+" action button directly onto Home, where users most often need to log an expense.</li>
+          <li><strong>Decluttered dashboard:</strong> removed the redundant Add Income shortcut, since income is largely set-and-forget.</li>
+          <li><strong>Batch logging:</strong> added explicit "Save & Continue" vs. "Save" actions in the expense modal.</li>
+        </ul>
+      </div>
+
+      <div class="subsection">
+        <h4>3 — Engineering & Handoff</h4>
+        <ul>
+          <li><strong>React Native over React.js</strong> — QR-to-app receipt sharing required native OCR APIs.</li>
+          <li>LLM-backed OCR via Firebase Cloud Functions parses QR receipt data and pre-fills the expense form.</li>
+          <li>Shared gesture handling and layout tokens formatted consistently across iOS and Android.</li>
+          <li>Biggest lesson: for the next project, set up a shared component library and design tokens from day one.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="container">
+      <h2 class="case-section-title">Key Outcomes</h2>
+      <div class="outcomes-list">
+        <div class="outcome-item"><span class="outcome-num">01</span><p>Shipped a functional MVP as a React Native app with live Firebase data and LLM-backed OCR receipt parsing.</p></div>
+        <div class="outcome-item"><span class="outcome-num">02</span><p>3-screen navigation and the Fun Budget toggle were validated as intuitive across all usability tests.</p></div>
+        <div class="outcome-item"><span class="outcome-num">03</span><p>QR-to-app sharing removed the need to manually re-type receipts from PayNow or PayLah.</p></div>
+        <div class="outcome-item"><span class="outcome-num">04</span><p>The 66-day progress bar helped students focus on "working towards day XX" rather than days missed — reinforcing forward motivation over guilt.</p></div>
+        <div class="outcome-item"><span class="outcome-num">05</span><p>Pivoting from gamification to frictionless habit formation reduced scope and sped up development on the highest-impact flows.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer" id="site-footer"></footer>
+
+<script>const ROOT = '../';</script>
+<script src="../js/partials.js"></script>
+</body>
+</html>

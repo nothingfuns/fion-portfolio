@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PIP — Autonomous EV Charging — Fion</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="site-header" id="site-header" data-active=""></header>
+
+<main>
+  <section class="case-hero">
+    <div class="case-hero-bg" style="background-image:url('../assets/images/hero-ev-bg.png');"></div>
+    <div class="container">
+      <h1 class="case-title">The Future of Autonomous Urban EV Charging</h1>
+      <p class="case-subtitle">Designing a mobile, autonomous charging pod to eliminate fixed-bay congestion in Singapore's dense carparks.</p>
+      <div class="meta-grid">
+        <div class="meta-item"><div class="meta-label">Role</div><div class="meta-value">UX Designer & Researcher · 3D Modelling · Video Editor</div></div>
+        <div class="meta-item"><div class="meta-label">Team</div><div class="meta-value">10 members across 2 sub-teams</div></div>
+        <div class="meta-item"><div class="meta-label">Timeframe</div><div class="meta-value">4 months</div></div>
+        <div class="meta-item"><div class="meta-label">Tools</div><div class="meta-value">Fusion 360 · Blender · Adobe Premiere Pro · Procreate</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="container">
+      <h2 class="case-section-title">The Context & The Pivot</h2>
+      <div class="problem-box">
+        <div class="problem-label">THE CHALLENGE</div>
+        <p>Use a provided robocar chassis to create a functional vehicle concept for the year 2030 — purpose-built for Singapore's urban environment.</p>
+      </div>
+      <div class="case-body" style="margin-top:24px;">
+        <p>Our initial concept focused on emergency roadside assistance for stranded vehicles. Evaluating feasibility in Singapore forced us to weigh our options:</p>
+      </div>
+      <div class="pair-grid" style="margin-top:20px;">
+        <div class="pair-card">
+          <h4>Roadside Assistance (initial concept)</h4>
+          <p>Low frequency of use, high operational readiness cost.</p>
+        </div>
+        <div class="pair-card">
+          <h4>Autonomous EV Charging (the pivot)</h4>
+          <p>High daily usage frequency, with high scalability and long-term utility.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="container">
+      <h2 class="case-section-title">Defining The Problem</h2>
+      <div class="trio-grid">
+        <div class="trio-card">
+          <h4>Bay Hogging</h4>
+          <p>EV bays stay occupied for hours post-charge, blocking other users from accessing them.</p>
+        </div>
+        <div class="trio-card">
+          <h4>Land Constraints</h4>
+          <p>Space constraints in older car parks concentrate charging infrastructure in select locations, leaving coverage gaps in residential and mixed-use zones.</p>
+        </div>
+        <div class="trio-card">
+          <h4>Overstay Penalties</h4>
+          <p>Users need to constantly remember to unplug their chargers once done, to avoid overstay penalties.</p>
+        </div>
+      </div>
+
+      <div class="quote-block" style="margin-top:40px;">
+        <p class="quote">"What if the charger came to you — instead of you waiting for a bay?"</p>
+        <p class="quote-cite">PIP (Portable Integrated Pod): instead of drivers hunting for fixed-bay chargers, PIP is deployed autonomously by a mothership (RAIA) to charge vehicles directly in standard parking spots.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="container">
+      <h2 class="case-section-title">Form Finding: Aesthetics vs. Function</h2>
+
+      <div class="subsection" style="margin-top:0;">
+        <h4>Phase 1 — The Mantaray</h4>
+        <p style="color:var(--text-dim);max-width:76ch;margin:0 auto;">Our early iterations explored organic, animal-inspired forms, specifically mimicking the skeleton and spots of a manta ray. While visually striking, the shape was too intrusive for tight carparks and lacked the flat surfaces needed for seamless magnetic docking.</p>
+      </div>
+      <div class="image-grid cols-4">
+        <div class="img-placeholder">Manta ray form sketches</div>
+        <div class="img-placeholder">Early silhouette exploration</div>
+        <div class="img-placeholder">Docking mechanism sketch</div>
+        <div class="img-placeholder">Chassis layout sketch</div>
+      </div>
+
+      <div class="subsection">
+        <h4>Phase 2 — Function-Led Minimalism</h4>
+        <p style="color:var(--text-dim);max-width:76ch;margin:0 auto 16px;">We stepped back and prioritised PIP's core mechanical needs: a locking mechanism, a charging port, and indicator lights.</p>
+        <ul>
+          <li><strong>The Base:</strong> a dark grey aluminium and rubber base creates a grounded, bottom-heavy look for perceived stability.</li>
+          <li><strong>The Body:</strong> matte white finishes paired with blue-tinted glass give a clean, approachable aesthetic while letting users see the robotic arm inside.</li>
+          <li><strong>The Interface:</strong> an intuitive circular LED indicator pulses green to signal energy transfer, turning red when onboard cameras detect nearby obstacles.</li>
+        </ul>
+      </div>
+      <div class="image-grid cols-4">
+        <div class="img-placeholder">Moodboard references</div>
+        <div class="img-placeholder">Iteration sketches</div>
+        <div class="img-placeholder">3D block-outs</div>
+        <div class="img-placeholder">Final form render</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="container">
+      <h2 class="case-section-title">Overcoming Hardware & Engineering Constraints</h2>
+      <div class="subsection" style="margin-top:0;">
+        <h4>Engineering for Tight Spaces</h4>
+        <p style="color:var(--text-dim);max-width:76ch;margin:0 auto 16px;">To make PIP genuinely autonomous in dense HDB carparks, we had to engineer around strict spatial and mechanical limits:</p>
+        <ul>
+          <li><strong>SCARA arm redesign:</strong> the initial robotic arm sagged badly under 10kg of torque on the motor shafts. We redistributed the load-bearing structure onto the chassis and hollowed out the arm links, reducing weight by 40%.</li>
+          <li><strong>Swerve drive manoeuvrability:</strong> traditional steering needs too much clearance, so we integrated a swerve-drive system that lets PIP glide laterally and rotate 360° to align with charging ports in narrow aisles.</li>
+          <li><strong>Visual odometry:</strong> PIP navigates without GPS. Low-power Sony IMX219 camera sensors on all four sides let the pod track its environment and avoid obstacles autonomously.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="container">
+      <h2 class="case-section-title">The Wider Ecosystem: Designing for RAIA</h2>
+      <div class="subsection" style="margin-top:0;">
+        <h4>Designing the Interior Experience</h4>
+        <p style="color:var(--text-dim);max-width:76ch;margin:0 auto 16px;">Because RAIA is fully autonomous in most scenarios, the interior needed to maximise space and flexibility for the rare occasions manual transport is required.</p>
+        <ul>
+          <li><strong>The collapsible steering wheel:</strong> inspired by modular gaming consoles, telescopic posts let the handles collapse inward or adjust to the driver's grip width.</li>
+          <li><strong>The modular seat:</strong> moving away from bulky car seats, we designed a minimalist chair that folds into a seamless, compact rectangle. A built-in click-lock mechanism makes it easy to deploy or remove, turning it into a portable resting stool.</li>
+        </ul>
+      </div>
+      <div class="image-grid cols-2" style="margin-top:30px;">
+        <div class="img-placeholder">Interior concept — collapsible steering wheel</div>
+        <div class="img-placeholder">Interior concept — modular seat</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="container">
+      <h2 class="case-section-title">Key Outcomes</h2>
+      <div class="case-body" style="margin-bottom:24px;text-align:center;">
+        <p>PIP's design — a multi-modal autonomous charging robot built for multi-storey carparks, enabling charging while parked in any standard bay.</p>
+      </div>
+      <div class="outcomes-list">
+        <div class="outcome-item"><span class="outcome-num">01</span><p>Any standard bay becomes a charge-capable spot — no dedicated EV infrastructure required.</p></div>
+        <div class="outcome-item"><span class="outcome-num">02</span><p>Overstay penalties eliminated, as PIP disengages and returns autonomously once charging is complete.</p></div>
+        <div class="outcome-item"><span class="outcome-num">03</span><p>Multiple PIPs can be deployed per RAIA unit, multiplying effective charging capacity without additional land.</p></div>
+        <div class="outcome-item"><span class="outcome-num">04</span><p>Showcased at SUTD's end-of-year showcase for evaluation in other localities.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <div class="container">
+      <h2 class="case-section-title">More Details</h2>
+      <div class="image-grid cols-2">
+        <div class="img-placeholder">Add process video / render</div>
+        <div class="img-placeholder">Add process video / render</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer" id="site-footer"></footer>
+
+<script>const ROOT = '../';</script>
+<script src="../js/partials.js"></script>
+</body>
+</html>
