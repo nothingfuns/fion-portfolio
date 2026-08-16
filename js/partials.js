@@ -8,6 +8,7 @@ function siteHeader(active) {
     <div class="container">
       <a class="logo" href="${ROOT}index.html">FION</a>
       <nav class="nav-links" id="nav-links">
+        ${link(ROOT + 'index.html', 'Home', 'home')}
         ${link(ROOT + 'about.html', 'About Me', 'about')}
       </nav>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
