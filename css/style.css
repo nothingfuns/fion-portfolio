@@ -102,7 +102,10 @@ p { margin: 0; }
   flex-wrap: nowrap;
 }
 
-.logo {
+
+/* Grouped Logo & Footer-Talk Styles */
+.logo,
+.footer-talk {
   font-family: var(--font-display);
   font-weight: 800;
   font-style: italic;
@@ -111,17 +114,21 @@ p { margin: 0; }
   font-size: 1.1rem;
   text-decoration: none;
   cursor: pointer;
+  display: inline-block;
   transition: color 0.2s var(--ease), opacity 0.2s var(--ease), transform 0.2s var(--ease);
 }
 
-/* Hover and Focus state: turns white */
+/* Hover & Focus state: turns white */
 .logo:hover,
-.logo:focus-visible {
+.logo:focus-visible,
+.footer-talk:hover,
+.footer-talk:focus-visible {
   color: #ffffff; /* Or var(--text) */
 }
 
-/* Optional subtle press/click feedback */
-.logo:active {
+/* Press / Click feedback */
+.logo:active,
+.footer-talk:active {
   transform: scale(0.96);
   opacity: 0.9;
 }
@@ -693,6 +700,136 @@ p { margin: 0; }
   border: 1px solid var(--border);
   width: 100%;
 }
+
+
+/* ---------- Contact Me elements ---------- */
+/* ==========================================================================
+   Contact Page Styles
+   ========================================================================== */
+
+.accent-text {
+  color: var(--accent);
+}
+
+/* --- Contact Grid --- */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    margin-top: 32px;
+  }
+}
+
+/* --- Connect Card --- */
+.connect-card {
+  position: relative;
+  background-image: linear-gradient(128deg, var(--accent-soft) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  min-height: 220px;
+  transition: transform 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+
+.connect-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
+
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-size: 25% 33.33%;
+  background-image:
+    linear-gradient(to right, var(--accent-soft) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--accent-soft) 1px, transparent 1px);
+}
+
+.card-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: 16px;
+}
+
+.card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-pill);
+  background: var(--accent-soft);
+  border: 1px solid var(--border-strong);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s var(--ease);
+}
+
+.connect-card:hover .card-icon {
+  background: rgba(249, 144, 148, 0.22);
+}
+
+.card-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.card-label {
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.card-value {
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.card-sub {
+  color: var(--text-dim);
+  font-size: 0.88rem;
+}
+
+.card-btn {
+  margin-top: auto;
+  align-self: flex-start;
+  height: 32px;
+  padding: 0 20px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-strong);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text);
+  transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+}
+
+.connect-card:hover .card-btn {
+  border-color: var(--text);
+  color: var(--text);
+}
+
+
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1024px) {
