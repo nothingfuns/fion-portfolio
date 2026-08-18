@@ -42,7 +42,9 @@ const EDUCATION = [
     dates: 'Sept 2023 – May 2027',
     title: 'Bachelor of Science (Design and Artificial Intelligence)',
     tags: ['GPA 4.43/5.0', 'Global Merit Scholar'],
-    bullets: []
+    bullets: ['Minor in Computer Science',
+    'Minor in Design, Technology and Society',
+    'Date of graduation: May 2027',]
   },
   {
     org: 'Chalmers University of Technology',

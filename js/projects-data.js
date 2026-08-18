@@ -10,8 +10,8 @@ const PROJECTS = [
   {
     title: 'Robot vs. Digital Feedback in the Classroom',
     description: 'Using an embodied robot mediator to help educators gain real-time situational awareness and connect with shy or reserved learners.',
-    image: null,
-    link: null
+    image: 'assets/images/thumb-flowerRobot.png',
+    link: 'projects/robotic-mediator.html'
   },
   {
     title: 'Portfolio Revamp',
