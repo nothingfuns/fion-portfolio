@@ -35,7 +35,7 @@ function siteFooter() {
             <path d="M21.6 3.2a1.5 1.5 0 0 0-1.57-.26L2.9 10.3a1.5 1.5 0 0 0 .1 2.82l4.8 1.63 1.83 5.76a1.5 1.5 0 0 0 2.52.54l3.12-3.08 4.7 3.44a1.5 1.5 0 0 0 2.37-.92l3.2-15.5a1.5 1.5 0 0 0-3.94-1.79zM18.3 6.9l-8.4 7.57-.4-2.8 9.9-5.9a.3.3 0 0 0-.2-.07.3.3 0 0 0-.9.2z"/>
           </svg>
         </a>
-        <a href="tel:+6597275303">+65 9727 5303</a>
+        <a href="https://wa.me/6597275303" target="_blank" rel="noopener noreferrer">+65 9727 5303</a>
         <a href="mailto:goyfion@gmail.com">goyfion@gmail.com</a>
       </div>
     </div>
