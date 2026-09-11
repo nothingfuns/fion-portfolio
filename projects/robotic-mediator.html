@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Embodied Robotic Mediator — Case Study — Fion</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<header class="site-header" id="site-header" data-active=""></header>
+
+<main>
+
+  <!-- ============ Case hero ============ -->
+  <section class="case-hero">
+    <div class="case-hero-bg" style="background-image:url('../assets/images/hero-flower-robot.png'); background-color:#151517;"></div>
+    <div class="container case-narrow">
+      <h1 class="case-title">Embodied Robotic Mediator</h1>
+      <p class="case-subtitle">Improving presenter situational awareness through a physical, ambient robotic feedback mediator in online education.</p>
+      
+      <div class="meta-grid">
+        <div class="meta-item">
+          <div class="meta-label">
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>Role
+          </div>
+          <div class="meta-value">UX Researcher · Hardware · Interaction Designer</div>
+        </div>
+        
+        <div class="meta-item">
+          <div class="meta-label">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Team
+          </div>
+          <div class="meta-value">4 Designers / Researchers</div>
+        </div>
+        
+        <div class="meta-item">
+          <div class="meta-label">
+            <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Timeframe
+          </div>
+          <div class="meta-value">8 Weeks</div>
+        </div>
+        
+        <div class="meta-item">
+          <div class="meta-label">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.66 5.66l-6.3 6.3a1.5 1.5 0 0 0 2.12 2.12l6.3-6.3a4 4 0 0 0 5.66-5.66l-2.5 2.5-2.5-.83-.83-2.5z"/></svg>Methods
+          </div>
+          <div class="meta-value">Wizard of Oz · Between-Subjects Study · SART · NASA-TLX</div>
+        </div> 
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Overview & Cultural Context ============ -->
+  <section class="case-section">
+    <div class="container case-narrow">
+      <h2 class="case-section-title">Overview &amp; Cultural Context</h2>
+
+      <div class="problem-box">
+        <div class="problem-label">THE CHALLENGE</div>
+        <p>Online educators often face pedagogical stress due to a lack of immediate, organic audience feedback. This issue is especially pronounced in Swedish educational contexts, where students tend to be more introverted and hesitant to publicly interrupt a lecture when confused.</p>
+      </div>
+
+      <div class="case-body" style="margin-top: 20px;">
+        <p>We hypothesised that allowing students to give input <strong>“secretly”</strong> would lower their anxiety, while a physical, ambient robotic mediator could aggregate and relay that feedback to the educator. Due to project timelines, we scoped our testing exclusively to the educator's experience, exploring whether a physical tabletop robot improves a presenter's situational awareness and cognitive load compared to a digital screen-based agent.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ My Specific Contributions ============ -->
+  <section class="case-section">
+    <div class="container case-narrow">
+      <h2 class="case-section-title">My Specific Contributions</h2>
+
+      <div class="pair-grid" style="margin-bottom: 20px;">
+        <div class="pair-card trio-card-pink">
+          <h4>Research &amp; Hypothesis Generation</h4>
+          <p>Conducted foundational literature reviews to identify the HRI problem space within education. Sourced academic research that justified our core hypothesis regarding physical embodiment and situational awareness.</p>
+        </div>
+        <div class="pair-card trio-card-pink-light">
+          <h4>Ideation &amp; Conceptualization</h4>
+          <p>Facilitated early brainstorming to define our problem statement. Developed several divergent physical design concepts and sketches, helping the team converge on the final biomimetic flower concept.</p>
+        </div>
+      </div>
+      <div class="pair-grid">
+        <div class="pair-card trio-card-pink-light">
+          <h4>Hardware &amp; Arduino Prototyping</h4>
+          <p>Kick-started technical development. Built the initial circuitry and programmed the foundational Arduino prototypes, setting up the hardware architecture that the team used for the final model.</p>
+        </div>
+        <div class="pair-card">
+          <h4>User Testing &amp; Facilitation</h4>
+          <p>Co-led the experimental evaluation phase. Independently moderated testing sessions for approximately 35% of our 24 participants, ensuring strict control over the Wizard of Oz feedback triggers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Design Decisions & Tradeoffs ============ -->
+  <section class="case-section">
+    <div class="container case-narrow">
+      <h2 class="case-section-title">Design Decisions &amp; Tradeoffs</h2>
+
+      <div class="problem-box" style="margin-bottom: 24px;">
+        <div class="problem-label">STRATEGIC CONTEXT</div>
+        <p>To navigate our 8-week timeline, we had to make strategic tradeoffs that prioritised UX insights over engineering perfection.</p>
+      </div>
+
+      <div class="trio-grid">
+        <div class="trio-card trio-card-pink">
+          <h4>Form Factor — Scandinavian Biomimicry</h4>
+          <p>Pivoted from abstract concepts (a clay ball with an antenna) to a biomimetic flower design. We leaned into Scandinavian design principles — simplicity and calm, neutral colors — so the robot felt natural and unintimidating in a classroom.</p>
+        </div>
+        <div class="trio-card trio-card-pink-light">
+          <h4>Feedback Granularity — Discrete vs. Continuous</h4>
+          <p>Deliberately chose 3 discrete stages over a fluid, continuous flow state. A teacher actively presenting has very little cognitive bandwidth; stark, obvious state changes are easier to interpret at a glance.</p>
+        </div>
+        <div class="trio-card">
+          <h4>Prototyping Method — Wizard of Oz</h4>
+          <p>Encountered sensor reliability issues. We prioritised testing the interaction design rather than perfecting the engineering — using a hidden fishing wire to manually control the robot's physical movements.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Design Process & Iterations ============ -->
+ <section class="case-section">
+    <div class="container case-narrow">
+      <h2 class="case-section-title">Design Process &amp; Iterations</h2>
+      <div class="problem-label" style="text-align:center; margin-bottom: 20px;">PROTOTYPE ITERATIONS</div>
+
+      <div class="iteration-block">
+        <div class="iteration-header">
+          <div class="iteration-num">1</div>
+          <div class="iteration-title">Form &amp; Concept</div>
+        </div>
+        <div class="iteration-body">
+          <div class="iteration-col">
+            <div class="iteration-col-label">Problem</div>
+            <p>Needed an artifact that felt natural in a classroom without looking like surveillance technology.</p>
+          </div>
+          <div class="iteration-col">
+            <div class="iteration-col-label solution">Solution</div>
+            <p>Clay ball base with a flexible pipe-cleaner antenna designed to signal speech rate and complexity.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="iteration-block">
+        <div class="iteration-header">
+          <div class="iteration-num">2</div>
+          <div class="iteration-title">Feedback Modalities</div>
+        </div>
+        <div class="iteration-body">
+          <div class="iteration-col">
+            <div class="iteration-col-label">Problem</div>
+            <p>Initial single-state designs did not clearly communicate nuance in audience engagement levels.</p>
+          </div>
+          <div class="iteration-col">
+            <div class="iteration-col-label solution">Solution</div>
+            <p>Explored finite states combining light and kinetic motion to represent three distinct engagement states.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Early Iterations Media -->
+      <div class="image-grid cols-2" style="margin-bottom: 32px;">
+        <div>
+          <img src="../assets/images/initial_prototype.jpg" 
+              alt="Iteration 1: Clay ball with pipe-cleaner antenna" 
+              style="border-radius:var(--radius-sm); border:1px solid var(--border); width:100%; aspect-ratio:4/3; object-fit:contain; background:#989ea3;">
+          <p class="caption">Iteration 1: Initial clay and wire form exploration</p>
+        </div>
+        <div>
+          <img src="../assets/images/second_iteration.png" 
+              alt="Iteration 2: Feedback modality explorations" 
+              style="border-radius:var(--radius-sm); border:1px solid var(--border); width:100%; aspect-ratio:4/3; object-fit:cover;">
+          <p class="caption">Iteration 2: Exploring multi-state light and kinetic concepts</p>
+        </div>
+      </div>
+
+      <div class="iteration-block" style="margin-bottom: 24px;">
+        <div class="iteration-header">
+          <div class="iteration-num">3</div>
+          <div class="iteration-title">Final Prototype — Biomimetic Flower</div>
+        </div>
+        <div class="iteration-body">
+          <div class="iteration-col">
+            <div class="iteration-col-label">Problem</div>
+            <p>Needed a fully testable artifact for the between-subjects study that felt organic and non-intrusive.</p>
+          </div>
+          <div class="iteration-col">
+            <div class="iteration-col-label solution">Solution</div>
+            <p>3D-printed head, internal plastic stem housing an RGB LED, cardboard base with an Arduino Uno. Wizard of Oz method controlled via fishing wire.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Final Prototype States Media -->
+      <div class="image-grid" style="margin-bottom: 40px;">
+        <div>
+          <img src="../assets/images/inattentive_state.jpeg" alt="Inattentive state with drooped stem and purple LED" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;">
+          <p class="caption">Inattentive State (Lowered / Purple)</p>
+        </div>
+        <div>
+          <img src="../assets/images/neutral_state.jpeg" alt="Neutral state with mid-height stem and white LED" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;">
+          <p class="caption">Neutral State (Mid / White)</p>
+        </div>
+        <div>
+          <img src="../assets/images/attentive_state.jpeg" alt="Attentive state with upright stem and blue LED" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;">
+          <p class="caption">Attentive State (Raised / Blue)</p>
+        </div>
+      </div>
+
+      <div class="problem-label">PRE-STUDY: LED COLOR SELECTION (N=36)</div>
+      <div class="case-body" style="margin: 12px 0 20px;">
+        <p>To ensure visual feedback was intuitive, we ran a pre-study survey. Results revealed a strong user association with <strong style="color:#5B9BD5;">Blue</strong> for “Attentive” and <strong style="color:#9B59B6;">Purple</strong> for “Inattentive”, which drove our final interface decisions.</p>
+      </div>
+
+      <div class="state-table">
+        <table>
+          <thead>
+            <tr><th>State</th><th>Height</th><th>Light Color</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="state-name">Inattentive</td>
+              <td>Fully Lowered</td>
+              <td><span class="state-dot" style="background:#9B59B6;"></span>Purple</td>
+            </tr>
+            <tr>
+              <td class="state-name">Neutral</td>
+              <td>Mid-Level</td>
+              <td><span class="state-dot" style="background:#D9D9D9;"></span>White</td>
+            </tr>
+            <tr>
+              <td class="state-name">Attentive</td>
+              <td>Raised</td>
+              <td><span class="state-dot" style="background:#5B9BD5;"></span>Blue</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  
+  <!-- ============ Refining the Experimental Scope ============ -->
+  <section class="case-section">
+    <div class="container case-narrow">
+      <h2 class="case-section-title">Refining the Experimental Scope</h2>
+
+      <div class="problem-box" style="margin-bottom: 24px;">
+        <div class="problem-label">THE PIVOT</div>
+        <p>To ensure statistically valid insights within our time constraints, we aggressively narrowed our testing variables — moving from broad behavioral observation to a focused, measurable question.</p>
+      </div>
+
+      <div class="pair-grid" style="margin-bottom: 32px;">
+        <div class="pair-card">
+          <div class="problem-label" style="color: var(--text-faint);">ORIGINAL AMBITION</div>
+          <h4>Robot vs. No Robot</h4>
+          <p>Broad scope comparing conditions, measuring specific behavioral changes — reaction time, whether teachers paused, and if they re-explained content. Difficult to quantify and too subjective for our timeline.</p>
+        </div>
+        <div class="pair-card trio-card-pink">
+          <div class="problem-label">FINAL PIVOT</div>
+          <h4>Physical Robot vs. Digital Screen Agent</h4>
+          <p>Isolated a single question: <em>Does physical embodiment matter?</em> The only difference between conditions was physical presence. Swapped subjective tracking for standardised UX metrics: SART for Situational Awareness and mini NASA-TLX for Cognitive Workload.</p>
+        </div>
+      </div>
+
+      <!-- Digital Counterpart Mirroring Explanation -->
+      <div class="problem-label" style="margin-bottom: 12px;">DIGITAL COUNTERPART STATES</div>
+      <p style="color: var(--text-dim); margin-bottom: 20px;">
+        To isolate physical embodiment as the sole independent variable, we mirrored the physical robot's 3-stage states in an identical 2D digital screen agent displayed in the presenter's UI.
+      </p>
+
+      <!-- 3-Column Image Grid -->
+      <div class="image-grid cols-3" style="margin-bottom: 12px;">
+        <div>
+          <img src="../assets/images/screen_agent_inattentive.png" 
+              alt="Digital screen agent in inattentive state" 
+              style="border-radius: var(--radius-sm); border: 1px solid var(--border); width: 100%; height: auto; display: block;">
+          <p class="caption">Inattentive State (Purple / Drooped)</p>
+        </div>
+        <div>
+          <img src="../assets/images/screen_agent_neutral.png" 
+              alt="Digital screen agent in neutral state" 
+              style="border-radius: var(--radius-sm); border: 1px solid var(--border); width: 100%; height: auto; display: block;">
+          <p class="caption">Neutral State (White / Mid)</p>
+        </div>
+        <div>
+          <img src="../assets/images/screen_agent_attentive.png" 
+              alt="Digital screen agent in attentive state" 
+              style="border-radius: var(--radius-sm); border: 1px solid var(--border); width: 100%; height: auto; display: block;">
+          <p class="caption">Attentive State (Blue / Raised)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Experimental Evaluation & Results ============ -->
+  <section class="case-section">
+    <div class="container case-narrow">
+      <h2 class="case-section-title">Experimental Evaluation &amp; Results</h2>
+
+      <div class="problem-box" style="margin-bottom: 24px;">
+        <div class="problem-label">STUDY DESIGN</div>
+        <p>A between-subjects experiment (N=24) compared the physical robot against a screen agent during an online presentation task under controlled feedback triggers.</p>
+      </div>
+
+      <!-- Test Setup Comparison (2-Column Side-by-Side Grid) -->
+      <div class="image-grid cols-2" style="margin-bottom: 28px;">
+        <div>
+          <img src="../assets/images/robot_condition.jpeg" 
+               alt="Participant presenting with the physical tabletop flower robot beside the laptop" 
+               style="border-radius: var(--radius-sm); border: 1px solid var(--border); width: 100%; height: auto; display: block;">
+          <p class="caption">Condition 1: Physical Robotic Mediator</p>
+        </div>
+        <div>
+          <img src="../assets/images/screen_agent_condition.png" 
+               alt="Participant presenting with the digital on-screen agent during the online task" 
+               style="border-radius: var(--radius-sm); border: 1px solid var(--border); width: 100%; height: auto; display: block;">
+          <p class="caption">Condition 2: Digital Screen Agent</p>
+        </div>
+      </div>
+
+      <div class="stat-grid" style="margin-bottom: 24px;">
+        <div class="stat-card">
+          <div class="stat-value">N=24</div>
+          <div class="stat-label">Participants</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">p=0.462</div>
+          <div class="stat-label">SART (Situational Awareness)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">p=0.359</div>
+          <div class="stat-label">NASA-TLX (Cognitive Load)</div>
+        </div>
+      </div>
+
+      <div class="case-body" style="margin-bottom: 24px;">
+        <p>Independent-samples t-tests showed <strong style="color: var(--text);">no statistically significant differences</strong> in Situational Awareness or Cognitive Load between conditions.</p>
+      </div>
+
+      <div class="problem-label">QUALITATIVE TAKEAWAYS &amp; LEARNINGS</div>
+      <ul class="subsection" style="margin-top: 14px;">
+        <li><strong>Attention Splitting:</strong> Presenters experienced split attention between content delivery and interpreting feedback cues.</li>
+        <li><strong>Perception vs. Action:</strong> Recognising negative engagement did not provide actionable steps to recover the presentation, inducing emotional friction.</li>
+        <li><strong>The Limits of Embodiment:</strong> Introducing a physical artifact alone does not guarantee reduced cognitive load. Ambient designs must provide clear, actionable insights without demanding direct focal attention to be truly effective.</li>
+      </ul>
+
+      <div class="quote-block" style="margin-top:36px;">
+        <p class="quote">“Ambient designs must provide clear, actionable insights without demanding direct focal attention.”</p>
+        <p class="quote-cite">Key insight from the between-subjects evaluation</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Reflections & Next Steps ============ -->
+  <section class="case-section">
+    <div class="container case-narrow">
+      <h2 class="case-section-title">Reflections &amp; Next Steps</h2>
+
+      <div class="case-body" style="margin-bottom: 24px;">
+        <p>Designing a physical artifact to solve a digital communication problem was an incredible learning experience. If I were to continue iterating, I would focus on:</p>
+      </div>
+
+      <div class="checklist">
+        <div class="checklist-item">
+          <svg viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.6 3.5a.9.9 0 0 1 0 1.27l-6.8 6.8a.9.9 0 0 1-1.27 0L2.4 8.44a.9.9 0 1 1 1.27-1.27l2.5 2.5 6.16-6.17a.9.9 0 0 1 1.27 0Z" fill="#F99094"/></svg>
+          <p><strong>Exploring the Student Input Mechanism:</strong> Our testing focused entirely on the educator receiving feedback. A crucial next step is designing the actual input mechanism for students — how they can privately communicate comprehension levels without adding cognitive load to their own learning flow.</p>
+        </div>
+        <div class="checklist-item">
+          <svg viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.6 3.5a.9.9 0 0 1 0 1.27l-6.8 6.8a.9.9 0 0 1-1.27 0L2.4 8.44a.9.9 0 1 1 1.27-1.27l2.5 2.5 6.16-6.17a.9.9 0 0 1 1.27 0Z" fill="#F99094"/></svg>
+          <p><strong>From Status Updates to Actionable Guidance:</strong> Our biggest learning was that showing a negative state (the drooping flower) induced stress rather than helping. The next iteration would pair the ambient robot with a subtle digital prompt — e.g., “Consider pausing for questions” — bridging the gap between perception and action.</p>
+        </div>
+        <div class="checklist-item">
+          <svg viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.6 3.5a.9.9 0 0 1 0 1.27l-6.8 6.8a.9.9 0 0 1-1.27 0L2.4 8.44a.9.9 0 1 1 1.27-1.27l2.5 2.5 6.16-6.17a.9.9 0 0 1 1.27 0Z" fill="#F99094"/></svg>
+          <p><strong>Longer, Naturalistic Testing:</strong> Our 5–7 minute sessions were too short for presenters to fully acclimate. Future evaluations should use 20–30 minute mock lectures to see if the initial cognitive overhead of monitoring the robot decreases as it becomes familiar.</p>
+        </div>
+        <div class="checklist-item">
+          <svg viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M13.6 3.5a.9.9 0 0 1 0 1.27l-6.8 6.8a.9.9 0 0 1-1.27 0L2.4 8.44a.9.9 0 1 1 1.27-1.27l2.5 2.5 6.16-6.17a.9.9 0 0 1 1.27 0Z" fill="#F99094"/></svg>
+          <p><strong>Higher Fidelity Automation:</strong> While the Wizard of Oz methodology was necessary for our timeline, the manual fishing-wire controls were occasionally jerky. Upgrading to a fully automated servo-and-pulley system would allow for smoother, more organic transitions between states.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer" id="site-footer"></footer>
+
+<script>const ROOT = '../';</script>
+<script src="../js/partials.js"></script>
+</body>
+</html>
