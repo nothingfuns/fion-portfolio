@@ -257,6 +257,12 @@ h3.h4 { font-size: 1em; }
 }
 .project-media img { width: 100%; height: 100%; object-fit: cover; }
 
+/* Alternate the cards: image–text, then text–image. Only the visual order
+   changes (the HTML stays image-then-text), so reading and tab order are
+   the same for every card. */
+.project-card:nth-child(even) { grid-template-columns: 1fr 340px; }
+.project-card:nth-child(even) .project-media { order: 2; }
+
 .project-media.placeholder {
   display: flex;
   align-items: center;
@@ -929,7 +935,10 @@ h3.h4 { font-size: 1em; }
   }
 
 
-  .project-card { grid-template-columns: 1fr; }
+  .project-card,
+  .project-card:nth-child(even) { grid-template-columns: 1fr; }
+  /* Stacked on small screens: image always on top, so every card reads the same way. */
+  .project-card:nth-child(even) .project-media { order: 0; }
 
   .about-hero .container { grid-template-columns: 1fr; text-align: center; }
   .about-photo { max-width: 220px; margin: 0 auto; }
@@ -1033,7 +1042,7 @@ h3.h4 { font-size: 1em; }
 .skip-link:focus { top: 12px; }
 
 /* ---------- Orbit hero (home) ---------- */
-/* Layers, back to front: WebGL pages (js/orbit.js)
+/* Layers, back to front: WebGL pages (js/orbit.js, fixed full-screen canvas)
    → copy with a dark halo → label / hint / pause button.
    `.motion-paused` (set by js/hero.js) freezes every moving part. */
 .orbit-hero {
@@ -1046,12 +1055,125 @@ h3.h4 { font-size: 1em; }
   padding: 48px var(--gutter) 88px;
 }
 
+/* Full-screen and behind the page content, so pages can leave the hero and
+   float down into the project cards (js/orbit.js). */
 .orbit-canvas {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   display: block;
+  z-index: -1;
+  pointer-events: none;
+}
+/* ---- Transition between the hero and the project list ---- */
+/* Words only, held on screen (sticky) while the scroll gathers the orbiting
+   pages into three project piles peeking out from behind the headline, then
+   drops them into the project cards (js/orbit.js adds .flow-ready once WebGL
+   is running). Paused motion, reduced motion or no WebGL: a short statement. */
+.flow-stage { position: relative; }
+.flow-sticky {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 72px var(--gutter);
+  text-align: center;
+}
+.flow-band { display: none; }
+.flow-stage.flow-ready { height: 230vh; }
+.flow-stage.flow-ready .flow-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  padding-top: 88px;               /* clears the sticky site header */
+  padding-bottom: 24px;
+}
+/* Room under the headline where the piles rest. */
+.flow-stage.flow-ready .flow-band { display: block; height: 26vh; height: 26svh; width: 100%; }
+@media (max-width: 720px) {
+  .flow-stage.flow-ready .flow-band { height: 14vh; height: 14svh; }
+}
+.orbit-hero.motion-paused ~ .flow-stage.flow-ready { height: auto; }
+.orbit-hero.motion-paused ~ .flow-stage.flow-ready .flow-sticky { position: static; height: auto; padding-bottom: 72px; }
+.orbit-hero.motion-paused ~ .flow-stage.flow-ready .flow-band { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .flow-stage.flow-ready { height: auto; }
+  .flow-stage.flow-ready .flow-sticky { position: static; height: auto; padding-bottom: 72px; }
+  .flow-stage.flow-ready .flow-band { display: none; }
+}
+.flow-stage.flow-ready + .section { padding-top: 0; }
+/* While a card's thumbnail is flying in, its frame is see-through so the
+   page lands inside the border; the real <img> takes over once it lands. */
+.project-media.is-receiving { background: transparent; }
+
+.flow-eyebrow {
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.flow-title {
+  margin-top: 16px;
+  font-size: clamp(2rem, 5.5vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+.flow-title .accent { color: var(--accent); }
+/* Hand-drawn coral arrow that draws itself as the section comes up. */
+.flow-scribble {
+  width: clamp(120px, 16vw, 200px);
+  height: auto;
+  margin-top: 22px;
+  overflow: visible;
+}
+/* "Keep scrolling" cue: only while the words are held (js/orbit.js toggles
+   .cue-on); the chevron nudges down three times, then rests. */
+.flow-cue { display: none; }
+.flow-stage.flow-ready .flow-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  color: var(--text-dim);                 /* 7.5:1 on --bg; nothing passes behind it */
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+}
+.flow-stage.flow-ready.cue-on .flow-cue { opacity: 1; }
+.flow-cue svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.flow-stage.cue-on .flow-cue svg { animation: cue-nudge 1.2s var(--ease) 0.3s 3; }
+@keyframes cue-nudge {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(5px); }
+}
+.orbit-hero.motion-paused ~ .flow-stage .flow-cue { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .flow-stage .flow-cue { display: none; }
+}
+.flow-scribble path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--scribble, 1));
 }
 .orbit-hero.is-hovering { cursor: pointer; }
 

@@ -69,6 +69,25 @@
     </button>
   </section>
 
+  <!-- Transition: words only. It holds on screen while scrolling gathers the
+       orbiting pages into three project piles peeking out from behind the
+       headline (the .flow-band keeps room for them), then drops each pile into
+       its project card below (js/orbit.js). -->
+  <section class="flow-stage" id="flow-stage" aria-labelledby="flow-title">
+    <div class="flow-sticky">
+      <p class="flow-eyebrow">Selected Work</p>
+      <h2 class="flow-title" id="flow-title">From first sketch<br>to <span class="accent">final build.</span></h2>
+      <div class="flow-band" aria-hidden="true"></div>
+      <svg class="flow-scribble" viewBox="0 0 220 60" aria-hidden="true" focusable="false">
+        <path pathLength="1" d="M8 34 C 40 8, 70 54, 104 30 S 160 10, 184 34 C 192 42, 196 48, 200 54 M 190 50 L 201 55 L 204 43" />
+      </svg>
+      <p class="flow-cue" aria-hidden="true">
+        Keep scrolling
+        <svg viewBox="0 0 24 24" focusable="false"><path d="M6 9l6 6 6-6" /></svg>
+      </p>
+    </div>
+  </section>
+
   <section class="section">
     <div class="container">
       <h2 class="eyebrow section-title">
