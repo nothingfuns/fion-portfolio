@@ -36,6 +36,9 @@ const PROJECTS = [
 function renderProjects() {
   const list = document.getElementById('project-list');
   if (!list) return;
+  // Card titles sit one level under the page's section heading
+  // (h3 on the home page, h2 on projects.html) — set via data-heading.
+  const h = list.dataset.heading || 'h3';
 
   list.innerHTML = PROJECTS.map(p => `
     <article class="project-card" style="${p.link ? '' : 'opacity: 0.85;'}">
@@ -45,11 +48,11 @@ function renderProjects() {
           : '<div style="display:grid; place-items:center; height:100%; color:#888; font-size:0.9rem;">Visual in progress</div>'}
       </div>
       <div>
-        <h3 class="project-title">${p.title}</h3>
+        <${h} class="project-title">${p.title}</${h}>
         <p class="project-desc">${p.description}</p>
         ${p.link
           ? `<a class="btn btn-outline" href="${ROOT}${p.link}">Read More...</a>`
-          : `<span class="btn btn-outline" style="opacity: 0.55; cursor: default; pointer-events: none; border-style: dashed;">Case Study in Progress</span>`}
+          : `<span class="btn btn-outline" style="opacity: 0.8; cursor: default; pointer-events: none; border-style: dashed;">Case Study in Progress</span>`}
       </div>
     </article>
   `).join('');

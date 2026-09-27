@@ -11,34 +11,70 @@
 
 <header class="site-header" id="site-header" data-active="home"></header>
 
-<main>
-  <section class="hero">
-    <div class="container">
-      <div>
-        <div class="tag-row">
-          <span class="tag">UI/UX</span>
-          <span class="tag">Product Design</span>
-        </div>
-        <h1 class="hero-heading" style="margin-top:20px;">
-          Building Designs That
-          <span class="accent-line">Make Sense</span>
-        </h1>
-        <p class="hero-copy" style="margin-top:18px;">
-          I'm a designer who is interested in making products intuitive, accessible and aesthetically pleasing in a way that integrates seamlessly into your everyday routine.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="contact.html">Let's Talk!</a>
-        </div>
+<main id="main">
+  <!-- Hero: project pages orbiting the headline
+       (js/orbit.js), and a little stick-figure mascot (js/hero.js).
+       Everything except the copy is decorative — the same projects are
+       listed as normal links in the section below. -->
+  <section class="orbit-hero" id="orbit-hero">
+    <canvas class="orbit-canvas" aria-hidden="true"></canvas>
+    <div class="orbit-copy">
+      <div class="tag-row">
+        <span class="tag">UI/UX</span>
+        <span class="tag">Product Design</span>
       </div>
-      <div class="hero-art">
-        <img src="assets/images/hero-mockup.png" alt="66 Days budgeting app shown on two phones">
+      <h1 class="orbit-heading">
+        Building Designs That
+        <span class="ms-line">
+          <span class="ms-wrap">
+            <span class="accent-line">Make Sense</span>
+            <svg class="ms-brush" viewBox="0 0 600 40" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+              <defs>
+                <linearGradient id="ms-brush-grad" x1="0" x2="1" y1="0" y2="0">
+                  <stop offset="0" stop-color="#f99094" />
+                  <stop offset="1" stop-color="#ffb199" />
+                </linearGradient>
+                <filter id="ms-brush-wash" x="-5%" y="-60%" width="110%" height="220%">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.04 0.35" numOctaves="3" seed="7" />
+                  <feDisplacementMap in="SourceGraphic" scale="7" />
+                </filter>
+              </defs>
+              <path pathLength="1" d="M10 25 C 110 15, 230 31, 350 21 S 530 13, 590 20" />
+            </svg>
+            <span class="mascot is-standing" aria-hidden="true">
+              <img class="pose-standing" src="assets/images/mascot/standing.png" alt="">
+              <img class="pose-hanging" src="assets/images/mascot/hanging.png" alt="">
+              <img class="pose-lying" src="assets/images/mascot/lying.png" alt="">
+              <img class="pose-falling" src="assets/images/mascot/falling.png" alt="">
+            </span>
+          </span>
+        </span>
+      </h1>
+      <p class="hero-copy">
+        I'm a designer who is interested in making products intuitive, accessible and aesthetically pleasing in a way that integrates seamlessly into your everyday routine.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="contact.html">Let's Talk!</a>
       </div>
     </div>
+    <div class="orbit-label" aria-hidden="true"></div>
+    <p class="orbit-hint" aria-hidden="true">
+      <span class="hint-pointer">Scroll to spin · click a page to open it</span>
+      <span class="hint-touch">Scroll down for my projects</span>
+    </p>
+    <button type="button" class="orbit-pause">
+      <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+      <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 5v14l12-7z"/></svg>
+      <span class="orbit-pause-text">Pause motion</span>
+    </button>
   </section>
 
   <section class="section">
     <div class="container">
-      <h2 class="eyebrow section-title">Projects</h2>
+      <h2 class="eyebrow section-title">
+        Projects
+        <img class="mascot-rest" src="assets/images/mascot/lying.png" alt="" aria-hidden="true">
+      </h2>
       <div class="project-list" id="project-list"></div>
     </div>
   </section>
@@ -58,5 +94,7 @@
 <script>const ROOT = '';</script>
 <script src="js/partials.js"></script>
 <script src="js/projects-data.js"></script>
+<script src="js/hero.js"></script>
+<script type="module" src="js/orbit.js"></script>
 </body>
 </html>

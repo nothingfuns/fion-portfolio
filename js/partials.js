@@ -6,6 +6,7 @@ function siteHeader(active) {
     `<a href="${href}" ${active === key ? 'aria-current="page"' : ''}>${label}</a>`;
 
   return `
+    <a class="skip-link" href="#main">Skip to content</a>
     <div class="container">
       <a class="logo" href="${ROOT}index.html">FION</a>
       <nav class="nav-links" id="nav-links">
@@ -15,7 +16,7 @@ function siteHeader(active) {
         ${link(ROOT + 'contact.html', 'Contact', 'contact')}
 
       </nav>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu" aria-controls="nav-links" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -46,13 +47,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const toggle = document.getElementById('nav-toggle');
   const links = document.getElementById('nav-links');
   if (toggle && links) {
-    toggle.addEventListener('click', () => {
-      const open = links.classList.toggle('open');
+    const setOpen = open => {
+      links.classList.toggle('open', open);
       toggle.setAttribute('aria-expanded', open);
-    });
+    };
+    toggle.addEventListener('click', () => setOpen(!links.classList.contains('open')));
     links.querySelectorAll('a').forEach(a =>
-      a.addEventListener('click', () => links.classList.remove('open'))
+      a.addEventListener('click', () => setOpen(false))
     );
+    // Escape closes the menu and returns focus to the button.
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && links.classList.contains('open')) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+    // Tapping outside the header closes it too.
+    document.addEventListener('click', e => {
+      if (links.classList.contains('open') && !e.target.closest('#site-header')) setOpen(false);
+    });
   }
 
   const header = document.getElementById('site-header');

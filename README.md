@@ -28,6 +28,17 @@ assets/images/             cropped images pulled from your Figma screenshots
 - **Resume download**: add your actual PDF as `assets/Fion-Resume.pdf` (the button on the about page already points there).
 - Several sections still use dashed placeholder boxes (sketches, moodboards, process shots) — export those from Figma and swap them in the same way as other images.
 
+## Home hero (orbiting pages + mascot)
+
+- **Orbiting project pages** → `js/orbit.js` (WebGL via Three.js from jsDelivr). Edit the `PAGES` list at the top; images are small WebP copies in `assets/images/orbit/`. Pages fade back whenever they pass behind the text, so the copy always keeps AA contrast. On touch devices the pages are decorative only (no tap-to-open) — the Projects list below has the real links. Hovered pages glow in `--accent`.
+- **"Make Sense" ink** → `assets/images/hero/ink-coral.webp`, the watercolour gradient-mapped to the coral palette.
+- **Mascot poses** → `assets/images/mascot/standing.png`, `hanging.png`, `lying.png`, `falling.png`. The current files are rough crops from the drawing — **export your clean poses as transparent PNGs (white lines, ~150–250px tall) with these exact names** and they'll drop straight in. Behaviour lives in `js/hero.js`.
+- **Pause motion** button (bottom-right of the hero) stops all hero movement and is remembered per visitor. Visitors with "reduce motion" turned on start paused.
+
+## Accessibility
+
+Checked with Lighthouse (all pages score 100) plus manual checks: skip link, 44px touch targets, keyboard-closable mobile menu, WCAG AA text contrast (`--text-faint` was raised to `#8e8b93`), pause control for the animated hero, and `prefers-reduced-motion`. Card titles under a section `h2` use `<h3 class="h4">` so the outline stays in order while keeping the smaller size.
+
 ## Run it locally
 
 No install needed. Just open `index.html` in a browser, or for the mobile-nav/scroll behaviour to feel accurate, serve it locally:
