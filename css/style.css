@@ -4,7 +4,8 @@
    twice. Change a value here and it updates everywhere.
 =========================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+/* Fonts (Poppins + Inter) are loaded from each page's <head> with preconnects,
+   rather than an @import here, so they start downloading straight away. */
 
 :root {
   /* Color */
@@ -51,7 +52,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-img { max-width: 100%; display: block; }
+img { max-width: 100%; height: auto; display: block; }   /* height:auto keeps the aspect ratio now images carry width/height */
 
 a { color: inherit; text-decoration: none; }
 
@@ -89,10 +90,25 @@ h3.h4 { font-size: 1em; }
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(21, 21, 23, 0.85);
-  backdrop-filter: blur(10px);
   border-bottom: 1px solid transparent;
+  /* reserve the header's final height before js/partials.js fills it in,
+     so the page doesn't jump down when it appears (layout shift) */
+  min-height: 84px;
 }
+@media (max-width: 768px) { .site-header { min-height: 89px; } }
+/* The frosted background lives on a layer, not the header itself: a
+   backdrop-filter on the header would trap the phone drawer (position: fixed)
+   inside the header's box. */
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(21, 21, 23, 0.85);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+}
+.nav-backdrop { display: none; }
 .site-header.scrolled { border-bottom-color: var(--border); }
 
 .site-header .container {
@@ -137,14 +153,81 @@ h3.h4 { font-size: 1em; }
 }
 
 .nav-links {
+  position: relative;
   display: flex;
+  align-items: center;
   gap: clamp(16px, 3vw, 32px);
   font-size: 0.95rem;
   color: var(--text-dim);
   flex-shrink: 0;
 }
-.nav-links a { transition: color 0.2s var(--ease); }
-.nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--text); }
+.nav-links a {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding: 6px 0 8px;
+  transition: color 0.2s var(--ease);
+}
+.nav-links a[aria-current],
+.nav-links a:hover,
+.nav-links a:focus-visible { color: var(--text); }
+.nav-label { display: inline-block; }
+
+/* Hover / focus: a coral loop scribbles itself around the word, like circling
+   it on paper. (The hand-drawn underline is reserved for the current page.) */
+.nav-doodle {
+  position: absolute;
+  inset: -4px -14px -2px;
+  width: calc(100% + 28px);
+  height: calc(100% + 6px);
+  overflow: visible;
+  pointer-events: none;
+}
+.nav-doodle path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.15s var(--ease);
+}
+.nav-links a:hover .nav-doodle path,
+.nav-links a:focus-visible .nav-doodle path {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0.45s cubic-bezier(0.3, 0.6, 0.4, 1);
+}
+/* keyboard focus: the (thicker) coral doodle is the focus indicator, so the
+   default ring doesn't double it up. Coral on the page background is 8.2:1. */
+.nav-links a:focus-visible { outline: none; }
+.nav-links a:focus-visible .nav-doodle path { stroke-width: 2.6; }
+
+/* One hand-drawn coral stroke (js/partials.js): underlines the current page. */
+.nav-ink {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 8px;
+  overflow: visible;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    transform 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+    width 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.2s var(--ease);
+}
+.nav-ink.is-on { opacity: 1; }
+.nav-ink.no-glide { transition: none; }
+.nav-ink path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
 
 .nav-toggle { display: none; }
 
@@ -310,7 +393,17 @@ h3.h4 { font-size: 1em; }
   font-size: 0.92rem;
 }
 .footer-contact a:hover { color: var(--accent); }
+/* comfortable tap targets (≥ 44px) without changing how they look */
+.footer-contact a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+}
 .footer-contact svg { width: 18px; height: 18px; fill: var(--text-dim); }
+.footer-contact a:hover svg { fill: var(--accent); }
+.footer-talk { display: inline-flex; align-items: center; min-height: 44px; }
 
 /* ---------- About page ---------- */
 .about-hero .container {
@@ -760,8 +853,8 @@ h3.h4 { font-size: 1em; }
   pointer-events: none;
   background-size: 25% 33.33%;
   background-image:
-    linear-gradient(to right, var(--accent-soft) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--accent-soft) 1px, transparent 1px);
+    linear-gradient(to right, rgba(249, 144, 148, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(249, 144, 148, 0.07) 1px, transparent 1px);
 }
 
 .card-content {
@@ -859,18 +952,18 @@ h3.h4 { font-size: 1em; }
   .site-header .container {
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* Groups them on the left */
-    gap: 12px; /* Space between logo and toggle */
+    justify-content: space-between; /* FION on the left, menu button on the right */
+    gap: 12px;
     position: relative;
   }
 
   .logo {
-    order: 2; /* First: FION */
+    order: 1;
   }
 
   /* Hamburger Icon */
   .nav-toggle {
-    order: 1; /* Second: Hamburger icon beside FION */
+    order: 2; /* right-hand side, above the drawer's corner */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -882,7 +975,7 @@ h3.h4 { font-size: 1em; }
     height: 44px;
     padding: 0;
     align-items: center;
-    margin-left: -11px;       /* keeps the icon aligned with the gutter */
+    margin-right: -11px;      /* keeps the icon aligned with the gutter */
     z-index: 1001;
   }
 
@@ -892,47 +985,95 @@ h3.h4 { font-size: 1em; }
     height: 2px;
     background: var(--text, #ffffff);
     border-radius: 2px;
+    transition: transform 0.25s var(--ease), opacity 0.2s var(--ease);
   }
+  /* Hamburger morphs into an X while the menu is open. */
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; transform: scaleX(0.3); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-  /* Mobile Dropdown - Completely hidden until toggled */
+  /* Phone menu: a drawer that slides in from the right. Hidden with
+     visibility so its links are out of the tab order until opened. */
   .nav-links {
     order: 3;
-    display: none; /* Fully hides Home & About Me when closed */
-    position: absolute;
-    top: 100%; /* Sits immediately below the header bar */
-    left: 0;
+    display: flex;
+    position: fixed;
+    top: 0;
     right: 0;
-    width: 100%;
-    
-    /* Background covering all items */
-    background: #151517;
+    bottom: 0;
+    height: 100dvh;
+    width: min(80vw, 320px);
+    visibility: hidden;
+    transform: translateX(100%);
+    transition: transform 0.26s cubic-bezier(0.4, 0, 1, 1), visibility 0s linear 0.26s;
+    background: var(--bg-alt);
+    border-left: 1px solid var(--border);
+    box-shadow: -18px 0 40px rgba(0, 0, 0, 0.45);
     flex-direction: column;
-    align-items: flex-start;
-    padding: 20px 24px;
-    gap: 18px;
-    
-    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.1));
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+    align-items: stretch;
+    padding: 88px 28px 24px;
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
+    gap: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
     z-index: 1000;
   }
-
-  /* Revealed when clicking the burger */
   .nav-links.open {
-    display: flex;
+    visibility: visible;
+    transform: none;
+    transition: transform 0.34s cubic-bezier(0.2, 0.9, 0.3, 1), visibility 0s;
   }
 
+  /* Dimmed backdrop over the page: blocks taps on the content behind and
+     closes the drawer when tapped. */
+  .nav-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(8, 8, 10, 0.6);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.26s var(--ease), visibility 0s linear 0.26s;
+  }
+  .nav-open .nav-backdrop {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s var(--ease), visibility 0s;
+  }
+  /* the page behind can't scroll while the drawer is open */
+  html.nav-open, html.nav-open body { overflow: hidden; }
+  /* keep the menu / close button above the drawer and backdrop */
+  .nav-toggle { position: relative; z-index: 1002; }
+
+  /* each link fills its whole row, so the entire row is tappable (≥ 44px tall) */
   .nav-links a {
     display: block;
     width: 100%;
+    padding: 12px 0;
+    min-height: 44px;
     font-size: 1.05rem;
     color: var(--text-dim, #a0a0a0);
     text-decoration: none;
+    opacity: 0;
+    transform: translateX(16px);
+    transition: opacity 0.15s var(--ease), transform 0.15s var(--ease), color 0.2s var(--ease);
+  }
+  /* links slide in one after another */
+  .nav-links.open a {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), color 0.2s var(--ease);
+    transition-delay: calc(0.1s + var(--i, 0) * 45ms);
   }
 
-  .nav-links a[aria-current="page"],
+  .nav-links a[aria-current],
   .nav-links a:hover {
     color: var(--text, #ffffff);
   }
+  .nav-doodle { display: none; }      /* no hover on touch: underline marks the current page */
+  /* no doodle on phones, so bring the standard focus ring back for keyboards */
+  .nav-links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 
   .project-card,
@@ -953,6 +1094,16 @@ h3.h4 { font-size: 1em; }
 }
 
 @media (max-width: 480px) {
+  /* robot-state table fits at 320px instead of being clipped */
+  .state-table th, .state-table td { padding-left: 10px; padding-right: 10px; }
+  .state-table th { letter-spacing: 0.04em; font-size: 0.64rem; }
+  .state-table td { font-size: 0.85rem; }
+  .state-table .state-dot { margin-right: 5px; }
+}
+@media (max-width: 380px) {
+  .state-table th, .state-table td { padding-left: 7px; padding-right: 7px; }
+  .state-table td, .state-table td.state-name { font-size: 0.78rem; }
+  .state-table .state-dot { width: 8px; height: 8px; margin-right: 4px; }
   .meta-grid { grid-template-columns: 1fr; }
   .image-grid, .image-grid.cols-2, .image-grid.cols-4 { grid-template-columns: 1fr; }
 }
@@ -965,6 +1116,7 @@ h3.h4 { font-size: 1em; }
   border: 1px solid var(--border);
   background: var(--bg-alt);
 }
+.state-table { overflow-x: auto; }
 .state-table table { width: 100%; border-collapse: collapse; }
 .state-table th {
   text-align: left;
@@ -1062,8 +1214,11 @@ h3.h4 { font-size: 1em; }
   inset: 0;
   width: 100vw;
   height: 100vh;
+  height: 100lvh;      /* large viewport: stays the same size as the mobile address bar hides/shows */
+  bottom: auto;
   display: block;
   z-index: -1;
+  contain: strict;
   pointer-events: none;
 }
 /* ---- Transition between the hero and the project list ---- */
@@ -1202,7 +1357,7 @@ h3.h4 { font-size: 1em; }
   text-shadow: 0 0 18px var(--bg), 0 0 6px var(--bg);
 }
 .orbit-copy .hero-actions { justify-content: center; margin-top: 26px; }
-.orbit-copy .tag { background: rgba(21, 21, 23, 0.75); }
+.orbit-copy .tag { background: rgba(21, 21, 23, 0.9); color: #c4c2c8; }   /* ≥ 4.5:1 even beside the pill's border */
 
 .orbit-heading {
   margin-top: 22px;
@@ -1421,3 +1576,55 @@ h3.h4 { font-size: 1em; }
     clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
   }
 }
+
+/* ---------- Opening deal (home, first visit per session) ---------- */
+/* While the pages are being dealt (js/orbit.js), the hero copy waits, then
+   fades up as they lift into the spiral; the "Make Sense" ink and underline
+   hold their start until then so they still play in view. */
+.orbit-copy { transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+.orbit-hero.intro-playing .orbit-copy { opacity: 0; transform: translateY(14px); }
+.orbit-hero.intro-playing .orbit-heading .accent-line,
+.orbit-hero.intro-playing .ms-brush path { animation-play-state: paused; }
+
+/* ---------- Page transition: paper flight (js/transition.js) ---------- */
+/* A dark overlay swipes left → right (html::before) while a sheet of paper,
+   drawn on a canvas (.page-paper), flies across in front of it. Leaving: the
+   overlay swipes in during the paper's entrance. Arriving: the page starts
+   covered (html.wipe-pending, set in <head> before first paint); the overlay
+   swipes out as the paper exits. Purely decorative. */
+html::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  visibility: hidden;
+  background: #0d0d0f;                              /* plain dark, a shade darker than the page */
+  box-shadow: 0 0 90px 30px rgba(0, 0, 0, 0.6);   /* soft shadow on its moving edge */
+  transform: translateX(-100%);
+}
+html.wipe-cover::before   { visibility: visible; animation: overlay-in 0.36s cubic-bezier(0.6, 0, 0.3, 1) both; }
+html.wipe-pending::before { visibility: visible; transform: none; }
+html.wipe-reveal::before  { visibility: visible; animation: overlay-out 0.4s cubic-bezier(0.6, 0, 0.3, 1) var(--overlay-delay, 0.4s) both; }
+
+@keyframes overlay-in  { from { transform: translateX(-100%); } to { transform: none; } }
+@keyframes overlay-out { from { transform: none; } to { transform: translateX(100%); } }
+
+.page-paper {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* navbar: no glide, no drawing, no fold (the global rule removes transitions) */
+  .nav-links, .nav-links a, .nav-ink, .nav-doodle path, .nav-toggle span, .nav-backdrop { transition: none !important; }
+  /* plain page loads: the script skips the wipe; never show the sheets */
+  html::before,
+  .page-paper { display: none; }
+  .orbit-copy { transition: none; }
+}
+

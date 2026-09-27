@@ -4,19 +4,21 @@ const PROJECTS = [
   {
     title: '66 Days',
     description: 'A low-friction budgeting app designed to reduce manual logging and user drop-off.',
-    image: 'assets/images/thumb-66days.png',
+    image: 'assets/images/web/thumb-66days.webp',
+    small: 'assets/images/web/thumb-66days-480.webp',
     link: 'projects/66-days.html'
   },
   {
     title: 'Robot vs. Digital Feedback in the Classroom',
     description: 'Using an embodied robot mediator to help educators gain real-time situational awareness and connect with shy or reserved learners.',
-    image: 'assets/images/thumb-flowerRobot.png',
+    image: 'assets/images/web/thumb-flowerRobot.webp',
+    small: 'assets/images/web/thumb-flowerRobot-480.webp',
     link: 'projects/robotic-mediator.html'
   },
   {
     title: 'Redesigning EV Charging',
     description: 'A mobile, autonomous charging pod designed to decouple EV charging from fixed parking bays.',
-    image: 'assets/images/thumb-ev.png',
+    image: 'assets/images/web/thumb-ev.webp',
     link: 'projects/pip.html'
   },
   {
@@ -44,7 +46,7 @@ function renderProjects() {
     <article class="project-card" style="${p.link ? '' : 'opacity: 0.85;'}">
       <div class="project-media ${p.image ? '' : 'placeholder'}">
         ${p.image 
-          ? `<img src="${ROOT}${p.image}" alt="${p.title} preview" loading="lazy">` 
+          ? `<img src="${ROOT}${p.image}"${p.small ? ` srcset="${ROOT}${p.small} 480w, ${ROOT}${p.image} 900w" sizes="(max-width: 768px) calc(100vw - 48px), 340px"` : ''} alt="${p.title} preview" loading="lazy" decoding="async">` 
           : '<div style="display:grid; place-items:center; height:100%; color:#888; font-size:0.9rem;">Visual in progress</div>'}
       </div>
       <div>

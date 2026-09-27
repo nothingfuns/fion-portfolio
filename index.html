@@ -5,7 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fion — UI/UX & Product Designer</title>
 <meta name="description" content="Fion — designer building products that are intuitive, accessible and aesthetically pleasing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap"></noscript>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="stylesheet" href="css/style.css">
+<!-- page wipe: arrive covered if we came from a wipe (js/transition.js) -->
+<script>try{if(sessionStorage.getItem('fion-wipe')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('wipe-pending')}catch(e){}</script>
 </head>
 <body>
 
@@ -68,6 +75,22 @@
       <span class="orbit-pause-text">Pause motion</span>
     </button>
   </section>
+  <!-- Opening deal (js/orbit.js): once per session, skipped when motion is
+       paused or reduced. Runs here, before first paint, so the headline
+       doesn't flash before it fades in; a timer guarantees it's revealed. -->
+  <script>
+    (function () {
+      try {
+        var hero = document.getElementById('orbit-hero');
+        var choice = localStorage.getItem('fion-motion');
+        var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (sessionStorage.getItem('fion-intro') || choice === 'paused' || (!choice && reduced)) return;
+        sessionStorage.setItem('fion-intro', '1');
+        hero.classList.add('intro-playing');
+        setTimeout(function () { hero.classList.remove('intro-playing'); }, 3000);
+      } catch (e) { /* storage blocked: just skip the intro */ }
+    })();
+  </script>
 
   <!-- Transition: words only. It holds on screen while scrolling gathers the
        orbiting pages into three project piles peeking out from behind the
@@ -92,7 +115,7 @@
     <div class="container">
       <h2 class="eyebrow section-title">
         Projects
-        <img class="mascot-rest" src="assets/images/mascot/lying.png" alt="" aria-hidden="true">
+        <img class="mascot-rest" src="assets/images/mascot/lying.png" width="153" height="125" alt="" aria-hidden="true">
       </h2>
       <div class="project-list" id="project-list"></div>
     </div>
@@ -111,9 +134,10 @@
 <footer class="site-footer" id="site-footer"></footer>
 
 <script>const ROOT = '';</script>
-<script src="js/partials.js"></script>
-<script src="js/projects-data.js"></script>
-<script src="js/hero.js"></script>
+<script src="js/partials.js" defer></script>
+<script src="js/transition.js" defer></script>
+<script src="js/projects-data.js" defer></script>
+<script src="js/hero.js" defer></script>
 <script type="module" src="js/orbit.js"></script>
 </body>
 </html>

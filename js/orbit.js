@@ -12,6 +12,11 @@
 //     thumbnail lands exactly in its card's image frame (then the real <img>
 //     takes over) and the other pages fade into it.
 //
+// Opening (first visit per session): the pages are dealt onto the middle of
+// the screen one by one like papers on a desk, then lift off into the spiral
+// while the headline fades in. index.html decides whether it plays (adds
+// .intro-playing to the hero); skipped when motion is paused or reduced.
+//
 // Text protection:
 //  - Hero: a page that touches the hero copy fades as a whole (to 10%), on top
 //    of the hero's own dark CSS halo.
@@ -19,7 +24,7 @@
 //    in the page background colour are painted around each block of text,
 //    limiting how much of ALL the pages behind it combined can show (10% behind
 //    normal text, 22% behind the big transition headline). Vivid elsewhere.
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js';
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.min.js';   // minified build (~half the size)
 
 // Add / reorder pages here. Images live in assets/images/orbit/
 // (small WebP copies, ~720px max, so the hero stays light).
@@ -66,7 +71,8 @@ if (hero && canvas) {
 
 function init() {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  // Phones/tablets: cap pixel density a little lower so frames stay smooth.
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, TOUCH.matches ? 1.5 : 2));
 
   const scene = new THREE.Scene();
   const CAM_Z = 10;
@@ -89,6 +95,7 @@ function init() {
         uZones: { value: Array.from({ length: MAX_ZONES }, () => new THREE.Vector4()) },
         uMax: { value: new Array(MAX_ZONES).fill(1) },
         uCount: { value: 0 },
+        uMinFeather: { value: 56 },
         uBg: { value: new THREE.Vector3(parseInt(bgHex.slice(0, 2), 16) / 255, parseInt(bgHex.slice(2, 4), 16) / 255, parseInt(bgHex.slice(4, 6), 16) / 255) },
       },
       vertexShader: /* glsl */`void main() { gl_Position = vec4(position.xy, 0.0, 1.0); }`,
@@ -98,17 +105,24 @@ function init() {
         uniform float uMax[MAX_ZONES];
         uniform int uCount;
         uniform vec3 uBg;
+        uniform float uMinFeather;        // device px
         void main() {
           vec2 p = gl_FragCoord.xy;
           float veil = 0.0;
           for (int i = 0; i < MAX_ZONES; i++) {
             if (i >= uCount) break;
             vec4 z = uZones[i];
-            float r = length((p - z.xy) / z.zw);          // 1 = ellipse edge
-            float inside = 1.0 - smoothstep(0.95, 1.45, r);  // full inside, soft round falloff
+            vec2 d = p - z.xy;
+            float k = length(d / z.zw);                   // 1 = ellipse edge
+            // approximate distance (px) outside the ellipse, measured radially
+            float out_ = max(0.0, (k - 1.0) * length(d) / max(k, 1e-3));
+            // feather width in real px: generous even for short, wide labels
+            float f = max(uMinFeather, 0.7 * min(z.z, z.w));
+            // gaussian-like falloff: no visible edge
+            float inside = exp(-3.0 * (out_ / f) * (out_ / f));
             veil = max(veil, inside * (1.0 - uMax[i]));
           }
-          if (veil <= 0.0) discard;
+          if (veil <= 0.004) discard;
           gl_FragColor = vec4(uBg, veil);
         }
       `,
@@ -125,7 +139,15 @@ function init() {
     const scrollY = window.scrollY, scrollX = window.scrollX;
     let n = 0;
     for (const z of veilZones) {
-      const left = z.left - scrollX, right = z.right - scrollX, top = z.top - scrollY, bottom = z.bottom - scrollY;
+      let left, right, top, bottom;
+      if (z.el) {
+        // sticky element: its text box relative to the element, placed at the
+        // element's position this frame
+        const r = fr.rect(z.el);
+        left = r.left + z.l; right = r.right + z.r; top = r.top + z.t; bottom = r.bottom + z.b;
+      } else {
+        left = z.left - scrollX; right = z.right - scrollX; top = z.top - scrollY; bottom = z.bottom - scrollY;
+      }
       const w = right - left, h = bottom - top;
       // skip zones whose soft edge is entirely off-screen
       if (bottom + h * 0.8 < 0 || top - h * 0.8 > view.h || right + w * 0.8 < 0 || left - w * 0.8 > view.w) continue;
@@ -140,6 +162,7 @@ function init() {
       n++;
     }
     un.uCount.value = n;
+    un.uMinFeather.value = 56 * dpr;
   }
 
   // Paper shader: a gentle curl along the page plus a corner lift, rounded
@@ -220,7 +243,7 @@ function init() {
     parseInt(accentHex.slice(4, 6), 16) / 255
   );
 
-  const geometry = new THREE.PlaneGeometry(1, 1, 32, 32);
+  const geometry = TOUCH.matches ? new THREE.PlaneGeometry(1, 1, 16, 16) : new THREE.PlaneGeometry(1, 1, 32, 32);
   const loader = new THREE.TextureLoader();
   const stackIndex = {};          // position of each secondary page in its project's stack
 
@@ -294,12 +317,18 @@ function init() {
     return found;
   }
 
+  // The canvas is sized in CSS to the LARGE viewport (100lvh), so the mobile
+  // address bar showing/hiding while you scroll never changes its size —
+  // otherwise the renderer would resize (and the scene jump) mid-scroll.
   function resize() {
-    const w = window.innerWidth, h = window.innerHeight;
-    renderer.setSize(w, h, false);
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
-    view = { w, h, k: (2 * CAM_Z * tanHalfFov) / h };
+    const w = canvas.clientWidth || window.innerWidth;
+    const h = canvas.clientHeight || window.innerHeight;
+    if (w !== view.w || h !== view.h) {
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      view = { w, h, k: (2 * CAM_Z * tanHalfFov) / h };
+    }
     // Keep the spiral centred on the headline at every shape:
     // wide laptop → full ellipse; portrait tablet/phone → tall and narrow.
     const heroAspect = hero.clientWidth / Math.max(1, hero.clientHeight);
@@ -324,6 +353,8 @@ function init() {
     const sy = window.scrollY, sx = window.scrollX;
     const box = (r, pad) => ({ left: r.left + sx - pad, right: r.right + sx + pad, top: r.top + sy - pad, bottom: r.bottom + sy + pad });
     const addHero = (r, pad) => { if (r.width >= 2) heroRects.push(box(r, pad)); };
+    // Transition text is sticky, so store its text box relative to the element
+    // and position it each frame from one cheap rect read (see updateVeil).
     const addZone = (el, pad, max = 0.1) => {
       const r = el.getBoundingClientRect();
       if (r.width < 2 || r.height < 2) return;
@@ -331,7 +362,8 @@ function init() {
       const range = document.createRange();
       range.selectNodeContents(el);
       const t = range.getBoundingClientRect();
-      veilZones.push({ ...box(t.width > 2 ? t : r, pad), max });
+      const tt = t.width > 2 ? t : r;
+      veilZones.push({ el, l: tt.left - r.left - pad, r: tt.right - r.right + pad, t: tt.top - r.top - pad, b: tt.bottom - r.bottom + pad, max });
     };
     copyEl.querySelectorAll('.tag, .btn').forEach(el => addHero(el.getBoundingClientRect(), 28));
     copyEl.querySelectorAll('.orbit-heading, .hero-copy').forEach(el => {
@@ -351,21 +383,26 @@ function init() {
     // cleanly, so they simply pass behind its text without a dark patch.
   }
 
+  // Layout work is batched into at most one pass per frame.
+  let resizeQueued = false;
+  const queueResize = () => {
+    if (resizeQueued) return;
+    resizeQueued = true;
+    requestAnimationFrame(() => { resizeQueued = false; resize(); });
+  };
   resize();
-  window.addEventListener('resize', resize);
+  window.addEventListener('resize', queueResize);
   // Web fonts / wrapping / lazy images can move things after first layout.
-  new ResizeObserver(() => resize()).observe(copyEl);
-  new ResizeObserver(() => measureText()).observe(document.body);
-  // The transition is sticky, so its words move relative to the document while
-  // pinned — re-measure on scroll so the text-protection veil stays on them.
-  window.addEventListener('scroll', measureText, { passive: true });
+  new ResizeObserver(queueResize).observe(copyEl);
+  new ResizeObserver(queueResize).observe(document.body);
 
   window.addEventListener('scroll', () => {
     const delta = window.scrollY - lastScroll;
     lastScroll = window.scrollY;
     if (isPaused()) return;
-    offset = (offset + delta * 0.00045 + 1) % 1;   // scrolling spins the spiral
-    flutter = Math.min(1, flutter + Math.abs(delta) * 0.004);
+    const step = THREE.MathUtils.clamp(delta, -60, 60);   // tame fling/momentum scrolls
+    offset = (offset + step * 0.00045 + 1) % 1;   // scrolling spins the spiral
+    flutter = Math.min(1, flutter + Math.abs(step) * 0.004);
   }, { passive: true });
 
   // Screen px (viewport) -> world position on the z = 0 plane (camera centred).
@@ -375,17 +412,80 @@ function init() {
   const easeInOut = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
   const clamp01 = t => Math.min(1, Math.max(0, t));
 
+  // ---- Opening deal ----
+  const INTRO_STAGGER = 0.05;   // s between pages
+  const INTRO_EACH = 0.8;       // s per page: drop in, then lift into the spiral
+  const INTRO_REVEAL = 0.7;     // s: headline starts fading in
+  let introOn = hero.classList.contains('intro-playing');
+  let introT0 = null;
+  let introNow = Infinity;      // s since the deal started (Infinity = no intro)
+  const introInit = performance.now();
+  const easeOut = t => 1 - Math.pow(1 - t, 3);
+  const dealPos = new THREE.Vector3(), abovePos = new THREE.Vector3();
+
+  // Bends the spiral pose `sp` into the deal for this page (t = 0..1).
+  function applyIntro(mesh, sp, t, centre) {
+    const i = mesh.userData.index;
+    const dealRot = (((i * 5) % 7) - 3) * 0.07;
+    dealPos.set(
+      centre.x + (((i * 7) % 5) - 2) * 0.26 * pageScale,
+      centre.y + (((i * 3) % 5) - 2) * 0.1 * pageScale,
+      -0.4 + i * 0.02
+    );
+    abovePos.set(dealPos.x * 0.5, toWorldY(-view.h * 0.12) + sp.sy, 0.6);
+    if (t < 0.45) {
+      // dealt: drop from above the screen onto the pile
+      const a = easeOut(t / 0.45);
+      sp.pos.lerpVectors(abovePos, dealPos, a);
+      sp.rot.set(0, 0, THREE.MathUtils.lerp(dealRot * 2.5, dealRot, a));
+      sp.opacity = THREE.MathUtils.smoothstep(t, 0, 0.1);
+      sp.dim = 1;
+      sp.bend = 0.25 * (1 - a);
+      sp.curl = 0.1 * (1 - a);
+    } else {
+      // lift off the pile into the spiral
+      const b = easeInOut((t - 0.45) / 0.55);
+      const from = sp.pos.clone();
+      sp.pos.lerpVectors(dealPos, from, b);
+      sp.pos.z += Math.sin(Math.PI * b) * 1.2;
+      sp.rot.set(sp.rot.x * b, sp.rot.y * b, THREE.MathUtils.lerp(dealRot, sp.rot.z, b));
+      sp.opacity = THREE.MathUtils.lerp(1, sp.opacity, b);
+      sp.dim = THREE.MathUtils.lerp(1, sp.dim, b);
+      sp.bend = THREE.MathUtils.lerp(0.04, sp.bend, b) + Math.sin(Math.PI * b) * 0.15;
+    }
+  }
+
+  // ---- Per-frame layout cache ----
+  // Reading positions (getBoundingClientRect / offsetTop) forces layout; doing
+  // it for every page every frame caused stutter on phones. Read each value at
+  // most once per frame and share it.
+  const fr = {
+    y: 0, heroH: 0, stageTop: 0, stageH: 0,
+    _rects: new Map(),
+    begin() {
+      this.y = window.scrollY;
+      this.heroH = hero.offsetHeight;
+      if (stage) { this.stageTop = stage.offsetTop; this.stageH = stage.offsetHeight; }
+      this._rects.clear();
+    },
+    rect(el) {
+      let r = this._rects.get(el);
+      if (!r) { r = el.getBoundingClientRect(); this._rects.set(el, r); }
+      return r;
+    },
+  };
+
   // ---- Timeline (document scroll px) ----
   // The transition is pinned from stage.offsetTop for (stage height - viewport).
   const titleEl = stage && stage.querySelector('.flow-title');
-  const pin = () => ({ start: stage.offsetTop, len: Math.max(1, stage.offsetHeight - view.h) });
+  const pin = () => ({ start: fr.stageTop, len: Math.max(1, fr.stageH - view.h) });
 
   // 1. Gather: from the stage entering until ~40% of the pin (lightly staggered).
   function gatherProgress(i) {
     const { start: p0, len } = pin();
-    const start = Math.max(hero.offsetHeight * 0.08, p0 - view.h * 0.7) + i * 10;
+    const start = Math.max(fr.heroH * 0.08, p0 - view.h * 0.7) + i * 10;
     const end = p0 + len * 0.4 + i * 6;
-    return clamp01((window.scrollY - start) / Math.max(1, end - start));
+    return clamp01((fr.y - start) / Math.max(1, end - start));
   }
   // 2. Hold: ~40–72% of the pin, the piles rest with the words.
   // 3. Drop: from ~72% of the pin; the first card lands in view once the list
@@ -394,19 +494,19 @@ function init() {
     const first = cards[ORDER[0]];
     if (!cards[link] || !first) return 0;
     const { start: p0, len } = pin();
-    const r0 = first.media.getBoundingClientRect();
-    const land0 = window.scrollY + r0.top + r0.height / 2 - view.h * 0.55;
+    const r0 = fr.rect(first.media);
+    const land0 = fr.y + r0.top + r0.height / 2 - view.h * 0.55;
     const idx = ORDER.indexOf(link);
     const start = p0 + len * 0.72 + idx * view.h * 0.04;
     const land = Math.max(start + 200, land0 + idx * view.h * 0.06);
-    return clamp01((window.scrollY - start) / (land - start));
+    return clamp01((fr.y - start) / (land - start));
   }
 
   // Three piles in a row, a quarter of each tucked behind the headline's last
   // line and the rest peeking out below (screen px).
   function pileSpot(link) {
     const n = ORDER.length, idx = ORDER.indexOf(link);
-    const r = titleEl.getBoundingClientRect();
+    const r = fr.rect(titleEl);
     const band = Math.min(view.w * 0.84, 900);
     const w = Math.min((band / n) * 0.72, 220);
     const h = w * 0.75;
@@ -461,6 +561,11 @@ function init() {
   function place(mesh, u, time, centre, flowOn) {
     const d = mesh.userData;
     const sp = spiralPose(mesh, u, time, centre);
+    let introLocal = 1;
+    if (introNow !== Infinity) {
+      introLocal = introNow < 0 ? 0 : clamp01((introNow - d.index * INTRO_STAGGER) / INTRO_EACH);
+      if (introLocal < 1) { applyIntro(mesh, sp, introLocal, centre); d.ready = 1; }   // dealt pages are solid
+    }
     const un = mesh.material.uniforms;
     d.ready = Math.min(1, d.ready + 0.03);
     const k = view.k;
@@ -508,7 +613,7 @@ function init() {
 
     // 3. Drop into the card.
     if (l > 0) {
-      const r = card.media.getBoundingClientRect();
+      const r = fr.rect(card.media);
       const shrink = d.primary ? 1 : 0.94;
       from.copy(mesh.position);
       cardPos.set(toWorldX(r.left + r.width / 2), toWorldY(r.top + r.height / 2), d.primary ? 0 : -0.03 * d.stack);
@@ -533,7 +638,7 @@ function init() {
     // Hero copy: a page that touches it fades as a whole (instantly down,
     // gently back up), as in the original landing page.
     let fadeTarget = 1;
-    if (heroRects.length && g < 0.5) {
+    if (heroRects.length && g < 0.5 && introLocal >= 1) {
       projected.copy(mesh.position).project(camera);
       const px = (projected.x + 1) / 2 * view.w;
       const py = (1 - projected.y) / 2 * view.h;
@@ -559,6 +664,7 @@ function init() {
     mesh.renderOrder = phase > 0
       ? 1000 + Math.round(l * 400) + ORDER.indexOf(d.link) * 20 + (d.primary ? 10 : 10 - d.stack)
       : Math.round(u * 1000);
+    if (introLocal < 1) mesh.renderOrder = 1000 + d.index;   // dealt pile: later pages on top
     d.opacity = opacity;
   }
 
@@ -643,32 +749,43 @@ function init() {
   if (list) watch.observe(list);
 
   const centre = new THREE.Vector2();
+  let lastScribble = '';
   function frame() {
     if (!running) return;
     const dt = Math.min(clock.getDelta(), 0.05);
+    fr.begin();
+    if (introOn) {
+      const now = performance.now();
+      // start once the pages have loaded (or after 1 s, whichever is first)
+      if (introT0 === null && (pages.every(m => m.userData.loaded || !m.userData.active) || now - introInit > 1000)) introT0 = now;
+      introNow = introT0 === null ? -1 : (now - introT0) / 1000;
+      if (introNow >= INTRO_REVEAL) hero.classList.remove('intro-playing');
+      if (introNow > INTRO_STAGGER * activeCount + INTRO_EACH) { introOn = false; introNow = Infinity; }
+    }
     const paused = isPaused();
     if (!paused) animTime += dt;     // paused = pages hold still, mid-flutter
 
     // Only fly when the transition is actually pinned (it collapses when
     // motion is paused or reduced) and the cards exist.
-    const flowOn = !paused && !!stage && stage.offsetHeight > view.h * 1.2 && findCards() === ORDER.length;
+    const flowOn = !paused && !!stage && fr.stageH > view.h * 1.2 && findCards() === ORDER.length;
 
     // "Keep scrolling" cue: shown while the words are held, until the drop starts.
     if (stage) {
       const { start: p0, len } = pin();
       // from when the piles have nearly gathered until just into the drop
-      const held = flowOn && window.scrollY >= p0 - view.h * 0.2 && window.scrollY < p0 + len * 0.78;
-      stage.classList.toggle('cue-on', held);
+      const held = flowOn && fr.y >= p0 - view.h * 0.2 && fr.y < p0 + len * 0.78;
+      if (held !== stage.classList.contains('cue-on')) stage.classList.toggle('cue-on', held);
     }
 
     // The coral arrow draws itself as the transition comes up.
     if (stage) {
-      const sr = stage.getBoundingClientRect();
-      stage.style.setProperty('--scribble', flowOn ? clamp01((view.h - sr.top) / (view.h * 0.9)).toFixed(3) : '1');
+      const sr = fr.rect(stage);
+      const v = flowOn ? clamp01((view.h - sr.top) / (view.h * 0.9)).toFixed(3) : '1';
+      if (v !== lastScribble) { stage.style.setProperty('--scribble', v); lastScribble = v; }
     }
 
     // Pages are only clickable while they're orbiting in the hero.
-    interactive = window.scrollY < hero.offsetHeight * 0.05;
+    interactive = fr.y < fr.heroH * 0.05;
     updateHover();
     speedScale = THREE.MathUtils.lerp(speedScale, hovered ? 0.15 : 1, 0.08);
     flutter *= 0.94;
@@ -683,7 +800,7 @@ function init() {
     camera.lookAt(0, 0, 0);
 
     // The spiral is centred on the hero, so it scrolls up with the headline.
-    const hr = hero.getBoundingClientRect();
+    const hr = fr.rect(hero);
     centre.set(toWorldX(hr.left + hr.width / 2), toWorldY(hr.top + hr.height / 2));
 
     pages.forEach(mesh => {

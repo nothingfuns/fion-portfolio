@@ -4,7 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>66 Days — Case Study — Fion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap"></noscript>
+<link rel="preload" as="image" href="../assets/images/web/hero-mockup-66days.webp" fetchpriority="high">
 <link rel="stylesheet" href="../css/style.css">
+<!-- page wipe: arrive covered if we came from a wipe (js/transition.js) -->
+<script>try{if(sessionStorage.getItem('fion-wipe')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('wipe-pending')}catch(e){}</script>
 </head>
 <body>
 
@@ -12,7 +19,7 @@
 
 <main id="main">
   <section class="case-hero">
-    <div class="case-hero-bg" style="background-image:url('../assets/images/hero-mockup-66days.png'); background-color:#151517;"></div>
+    <div class="case-hero-bg" style="background-image:url('../assets/images/web/hero-mockup-66days.webp'); background-color:#151517;"></div>
     <div class="container case-narrow">
       <h1 class="case-title">66 Days</h1>
       <p class="case-subtitle">Designing a low-friction budgeting app that turns finance tracking into a 66-day habit journey for Singaporean students.</p>
@@ -109,11 +116,11 @@
       </div>
       <div class="image-grid cols-2">
         <div>
-          <img src="../assets/images/pf-lofi-prototype.png" alt="Lo-fi paper prototype used for heuristic evaluation" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;">
+          <img src="../assets/images/web/pf-lofi-prototype.webp" alt="Lo-fi paper prototype used for heuristic evaluation" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;" width="912" height="570" loading="lazy" decoding="async">
           <p class="caption">Lo-fi paper prototype used for heuristic evaluation</p>
         </div>
         <div>
-          <img src="../assets/images/pf-nav-diagram.png" alt="Initial navigation diagram" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;background:#fff;">
+          <img src="../assets/images/web/pf-nav-diagram.webp" alt="Initial navigation diagram" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;background:#fff;" width="915" height="574" loading="lazy" decoding="async">
           <p class="caption">Initial navigation diagram</p>
         </div>
       </div>
@@ -138,15 +145,15 @@
 
       <div class="image-grid" style="margin-top:24px;">
         <div>
-          <img src="../assets/images/pf-home-page-sketch.png" alt="Home page paper sketch" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;">
+          <img src="../assets/images/web/pf-home-page-sketch.webp" alt="Home page paper sketch" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;" width="616" height="576" loading="lazy" decoding="async">
           <p class="caption" style="color:var(--accent);">Home page</p>
         </div>
         <div>
-          <img src="../assets/images/pf-gamification-badges.png" alt="Gamification through badges paper sketch" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;">
+          <img src="../assets/images/web/pf-gamification-badges.webp" alt="Gamification through badges paper sketch" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;" width="614" height="573" loading="lazy" decoding="async">
           <p class="caption">Gamification through badges</p>
         </div>
         <div>
-          <img src="../assets/images/pf-testing-widgets.png" alt="Testing different widgets paper sketch" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;">
+          <img src="../assets/images/web/pf-testing-widgets.webp" alt="Testing different widgets paper sketch" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;" width="616" height="573" loading="lazy" decoding="async">
           <p class="caption">Testing different widgets</p>
         </div>
       </div>
@@ -189,13 +196,13 @@
       <div class="image-grid cols-2" style="margin-top:30px;">
         <div>
           <div class="img-row">
-            <img src="../assets/images/homepage-before.png" alt="Homepage before">
+            <img src="../assets/images/web/homepage-before.webp" alt="Homepage before" width="936" height="546" loading="lazy" decoding="async">
           </div>
           <p class="caption">Homepage before to after</p>
         </div>
         <div>
           <div class="img-row">
-            <img src="../assets/images/homepage-after.png" alt="Iterations of Add expense page">
+            <img src="../assets/images/web/homepage-after.webp" alt="Iterations of Add expense page" width="936" height="546" loading="lazy" decoding="async">
   
           </div>
           <p class="caption">Iterations of Add expense page</p>
@@ -250,13 +257,13 @@
             <div class="iteration-col">
               <div class="iteration-col-label">Problem</div>
               <p>Locking "Fun Budget" as a standalone category prevented users from tagging regular spending (e.g., Food) as discretionary.</p>
-              <img src="../assets/images/dd-funbudget-old.png" alt="Old: Fun budget as a category in the homepage and log expense page">
+              <img src="../assets/images/web/dd-funbudget-old.webp" alt="Old: Fun budget as a category in the homepage and log expense page" width="936" height="546" loading="lazy" decoding="async">
               <p class="caption">(Old) Fun budget as a category in homepage and log expense page</p>
             </div>
             <div class="iteration-col">
               <div class="iteration-col-label solution">Solution</div>
               <p>Toggle won the 20-student study. Users can now tag expenses across any category as Fun Budget, paired with a lively visual meter.</p>
-              <img src="../assets/images/dd-funbudget-new.png" alt="New: Fun budget as a toggle in the log expense page">
+              <img src="../assets/images/web/dd-funbudget-new.webp" alt="New: Fun budget as a toggle in the log expense page" width="936" height="546" loading="lazy" decoding="async">
               <p class="caption">(New) Fun budget as a toggle in the log expense page</p>
             </div>
           </div>
@@ -271,13 +278,13 @@
             <div class="iteration-col">
               <div class="iteration-col-label">Problem</div>
               <p>Tiny edit icons created tapping errors, and rows looked auto-logged without clear status.</p>
-              <img src="../assets/images/dd-qr-old.png" alt="Old: tiny edit button on a transaction row">
+              <img src="../assets/images/web/dd-qr-old.webp" alt="Old: tiny edit button on a transaction row" width="905" height="232" loading="lazy" decoding="async">
               <p class="caption">(Old) Tiny edit button</p>
             </div>
             <div class="iteration-col">
               <div class="iteration-col-label solution">Solution</div>
               <p>Made the entire row a tap target, grouped approvals by date, and added a "Pending" badge.</p>
-              <img src="../assets/images/dd-qr-new.png" alt="New: whole card is clickable to edit">
+              <img src="../assets/images/web/dd-qr-new.webp" alt="New: whole card is clickable to edit" width="919" height="232" loading="lazy" decoding="async">
               <p class="caption">(New) Whole card clickable to edit</p>
             </div>
           </div>
@@ -347,6 +354,7 @@
 <footer class="site-footer" id="site-footer"></footer>
 
 <script>const ROOT = '../';</script>
-<script src="../js/partials.js"></script>
+<script src="../js/partials.js" defer></script>
+<script src="../js/transition.js" defer></script>
 </body>
 </html>

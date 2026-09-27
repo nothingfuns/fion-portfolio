@@ -35,6 +35,12 @@ assets/images/             cropped images pulled from your Figma screenshots
 - **Mascot poses** → `assets/images/mascot/standing.png`, `hanging.png`, `lying.png`, `falling.png`. The current files are rough crops from the drawing — **export your clean poses as transparent PNGs (white lines, ~150–250px tall) with these exact names** and they'll drop straight in. Behaviour lives in `js/hero.js`.
 - **Pause motion** button (bottom-right of the hero) stops all hero movement and is remembered per visitor. Visitors with "reduce motion" turned on start paused.
 
+## Opening & page transitions
+
+- **Opening deal** (first visit per browser session): the project pages are dealt onto the middle of the screen, then lift into the spiral as the headline fades in. Gate: inline script after the hero in `index.html`; animation: `applyIntro()` in `js/orbit.js`.
+- **Page transitions** (`js/transition.js`): a sheet of paper (adapted from the "Paper Loop" prototype) bends and flips as it flies across, left to right, while a dark overlay swipes across behind it. The flight starts on the page you leave and finishes on the page you arrive at. A random emoji is printed on it each trip (the `EMOJIS` list at the top of the script), and `SPEED` sets how quick each phase is. Skipped with reduced motion; works in all browsers.
+- Reduced motion / paused: no opening, and plain page loads.
+
 ## Accessibility
 
 Checked with Lighthouse (all pages score 100) plus manual checks: skip link, 44px touch targets, keyboard-closable mobile menu, WCAG AA text contrast (`--text-faint` was raised to `#8e8b93`), pause control for the animated hero, and `prefers-reduced-motion`. Card titles under a section `h2` use `<h3 class="h4">` so the outline stays in order while keeping the smaller size.

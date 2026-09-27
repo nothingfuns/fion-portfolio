@@ -4,7 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About Me — Fion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap"></noscript>
 <link rel="stylesheet" href="css/style.css">
+<!-- page wipe: arrive covered if we came from a wipe (js/transition.js) -->
+<script>try{if(sessionStorage.getItem('fion-wipe')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('wipe-pending')}catch(e){}</script>
 </head>
 <body>
 
@@ -14,7 +20,7 @@
   <section class="about-hero">
     <div class="container">
       <div class="about-photo">
-        <img src="assets/images/profile.png" alt="Portrait of Fion">
+        <img src="assets/images/web/profile.webp" srcset="assets/images/web/profile-400.webp 400w, assets/images/web/profile.webp 600w" sizes="(max-width: 768px) 220px, 300px" alt="Portrait of Fion" width="600" height="450" fetchpriority="high" decoding="async">
       </div>
       <div>
         <div class="tag-row">
@@ -37,8 +43,8 @@
     </div>
 
     <div class="photo-strip">
-      <img src="assets/images/travel-1.png" alt="View over the Julian Alps, Slovenia">
-      <img src="assets/images/travel-2.png" alt="Waterfall in Slovenia">
+      <img src="assets/images/web/travel-1.webp" srcset="assets/images/web/travel-1-520.webp 520w, assets/images/web/travel-1.webp 960w" sizes="(max-width: 768px) calc(100vw - 48px), 560px" alt="View over the Julian Alps, Slovenia" width="960" height="1280" loading="lazy" decoding="async">
+      <img src="assets/images/web/travel-2.webp" srcset="assets/images/web/travel-2-520.webp 520w, assets/images/web/travel-2.webp 960w" sizes="(max-width: 768px) calc(100vw - 48px), 560px" alt="Waterfall in Slovenia" width="960" height="1280" loading="lazy" decoding="async">
     </div>
   </section>
 
@@ -65,7 +71,8 @@
 <footer class="site-footer" id="site-footer"></footer>
 
 <script>const ROOT = '';</script>
-<script src="js/partials.js"></script>
-<script src="js/about-data.js"></script>
+<script src="js/partials.js" defer></script>
+<script src="js/transition.js" defer></script>
+<script src="js/about-data.js" defer></script>
 </body>
 </html>

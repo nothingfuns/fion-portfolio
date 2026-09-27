@@ -5,7 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fion — UI/UX & Product Designer</title>
 <meta name="description" content="Fion — designer building products that are intuitive, accessible and aesthetically pleasing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap"></noscript>
 <link rel="stylesheet" href="css/style.css">
+<!-- page wipe: arrive covered if we came from a wipe (js/transition.js) -->
+<script>try{if(sessionStorage.getItem('fion-wipe')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('wipe-pending')}catch(e){}</script>
 </head>
 <body>
 
@@ -32,7 +38,8 @@
 <footer class="site-footer" id="site-footer"></footer>
 
 <script>const ROOT = '';</script>
-<script src="js/partials.js"></script>
-<script src="js/projects-data.js"></script>
+<script src="js/partials.js" defer></script>
+<script src="js/transition.js" defer></script>
+<script src="js/projects-data.js" defer></script>
 </body>
 </html>

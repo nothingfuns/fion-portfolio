@@ -4,7 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Embodied Robotic Mediator — Case Study — Fion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap"></noscript>
+<link rel="preload" as="image" href="../assets/images/web/hero-flower-robot.webp" fetchpriority="high">
 <link rel="stylesheet" href="../css/style.css">
+<!-- page wipe: arrive covered if we came from a wipe (js/transition.js) -->
+<script>try{if(sessionStorage.getItem('fion-wipe')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('wipe-pending')}catch(e){}</script>
 </head>
 <body>
 
@@ -14,7 +21,7 @@
 
   <!-- ============ Case hero ============ -->
   <section class="case-hero">
-    <div class="case-hero-bg" style="background-image:url('../assets/images/hero-flower-robot.png'); background-color:#151517;"></div>
+    <div class="case-hero-bg" style="background-image:url('../assets/images/web/hero-flower-robot.webp'); background-color:#151517;"></div>
     <div class="container case-narrow">
       <h1 class="case-title">Embodied Robotic Mediator</h1>
       <p class="case-subtitle">Improving presenter situational awareness through a physical, ambient robotic feedback mediator in online education.</p>
@@ -165,15 +172,15 @@
       <!-- Early Iterations Media -->
       <div class="image-grid cols-2" style="margin-bottom: 32px;">
         <div>
-          <img src="../assets/images/initial_prototype.jpg" 
+          <img src="../assets/images/web/initial_prototype.webp" 
               alt="Iteration 1: Clay ball with pipe-cleaner antenna" 
-              style="border-radius:var(--radius-sm); border:1px solid var(--border); width:100%; aspect-ratio:4/3; object-fit:contain; background:#989ea3;">
+              style="border-radius:var(--radius-sm); border:1px solid var(--border); width:100%; aspect-ratio:4/3; object-fit:contain; background:#989ea3;" width="492" height="656" loading="lazy" decoding="async">
           <p class="caption">Iteration 1: Initial clay and wire form exploration</p>
         </div>
         <div>
-          <img src="../assets/images/second_iteration.png" 
+          <img src="../assets/images/web/second_iteration.webp" 
               alt="Iteration 2: Feedback modality explorations" 
-              style="border-radius:var(--radius-sm); border:1px solid var(--border); width:100%; aspect-ratio:4/3; object-fit:cover;">
+              style="border-radius:var(--radius-sm); border:1px solid var(--border); width:100%; aspect-ratio:4/3; object-fit:cover;" width="1024" height="768" loading="lazy" decoding="async">
           <p class="caption">Iteration 2: Exploring multi-state light and kinetic concepts</p>
         </div>
       </div>
@@ -198,15 +205,15 @@
       <!-- Final Prototype States Media -->
       <div class="image-grid" style="margin-bottom: 40px;">
         <div>
-          <img src="../assets/images/inattentive_state.jpeg" alt="Inattentive state with drooped stem and purple LED" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;">
+          <img src="../assets/images/web/inattentive_state.webp" alt="Inattentive state with drooped stem and purple LED" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;" width="768" height="1024" loading="lazy" decoding="async">
           <p class="caption">Inattentive State (Lowered / Purple)</p>
         </div>
         <div>
-          <img src="../assets/images/neutral_state.jpeg" alt="Neutral state with mid-height stem and white LED" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;">
+          <img src="../assets/images/web/neutral_state.webp" alt="Neutral state with mid-height stem and white LED" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;" width="768" height="1024" loading="lazy" decoding="async">
           <p class="caption">Neutral State (Mid / White)</p>
         </div>
         <div>
-          <img src="../assets/images/attentive_state.jpeg" alt="Attentive state with upright stem and blue LED" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;">
+          <img src="../assets/images/web/attentive_state.webp" alt="Attentive state with upright stem and blue LED" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;" width="768" height="1024" loading="lazy" decoding="async">
           <p class="caption">Attentive State (Raised / Blue)</p>
         </div>
       </div>
@@ -216,7 +223,7 @@
         <p>To ensure visual feedback was intuitive, we ran a pre-study survey. Results revealed a strong user association with <strong style="color:#5B9BD5;">Blue</strong> for “Attentive” and <strong style="color:#B27ACB;">Purple</strong> for “Inattentive”, which drove our final interface decisions.</p>
       </div>
 
-      <div class="state-table">
+      <div class="state-table" role="region" aria-label="Robot states: height and light colour" tabindex="0">
         <table>
           <thead>
             <tr><th>State</th><th>Height</th><th>Light Color</th></tr>
@@ -275,21 +282,21 @@
       <!-- 3-Column Image Grid -->
       <div class="image-grid cols-3" style="margin-bottom: 12px;">
         <div>
-          <img src="../assets/images/screen_agent_inattentive.png" 
+          <img src="../assets/images/web/screen_agent_inattentive.webp" 
               alt="Digital screen agent in inattentive state" 
-              style="border-radius: var(--radius-sm); border: 1px solid var(--border); width: 100%; height: auto; display: block;">
+              style="border-radius: var(--radius-sm); border: 1px solid var(--border); width: 100%; height: auto; display: block;" width="1600" height="1000" loading="lazy" decoding="async">
           <p class="caption">Inattentive State (Purple / Drooped)</p>
         </div>
         <div>
-          <img src="../assets/images/screen_agent_neutral.png" 
+          <img src="../assets/images/web/screen_agent_neutral.webp" 
               alt="Digital screen agent in neutral state" 
-              style="border-radius: var(--radius-sm); border: 1px solid var(--border); width: 100%; height: auto; display: block;">
+              style="border-radius: var(--radius-sm); border: 1px solid var(--border); width: 100%; height: auto; display: block;" width="1600" height="1000" loading="lazy" decoding="async">
           <p class="caption">Neutral State (White / Mid)</p>
         </div>
         <div>
-          <img src="../assets/images/screen_agent_attentive.png" 
+          <img src="../assets/images/web/screen_agent_attentive.webp" 
               alt="Digital screen agent in attentive state" 
-              style="border-radius: var(--radius-sm); border: 1px solid var(--border); width: 100%; height: auto; display: block;">
+              style="border-radius: var(--radius-sm); border: 1px solid var(--border); width: 100%; height: auto; display: block;" width="1600" height="1001" loading="lazy" decoding="async">
           <p class="caption">Attentive State (Blue / Raised)</p>
         </div>
       </div>
@@ -309,15 +316,15 @@
       <!-- Test Setup Comparison (2-Column Side-by-Side Grid) -->
       <div class="image-grid cols-2" style="margin-bottom: 28px;">
         <div>
-          <img src="../assets/images/robot_condition.jpeg" 
+          <img src="../assets/images/web/robot_condition.webp" 
                alt="Participant presenting with the physical tabletop flower robot beside the laptop" 
-               style="border-radius: var(--radius-sm); border: 1px solid var(--border); width: 100%; height: auto; display: block;">
+               style="border-radius: var(--radius-sm); border: 1px solid var(--border); width: 100%; height: auto; display: block;" width="1024" height="768" loading="lazy" decoding="async">
           <p class="caption">Condition 1: Physical Robotic Mediator</p>
         </div>
         <div>
-          <img src="../assets/images/screen_agent_condition.png" 
+          <img src="../assets/images/web/screen_agent_condition.webp" 
                alt="Participant presenting with the digital on-screen agent during the online task" 
-               style="border-radius: var(--radius-sm); border: 1px solid var(--border); width: 100%; height: auto; display: block;">
+               style="border-radius: var(--radius-sm); border: 1px solid var(--border); width: 100%; height: auto; display: block;" width="1123" height="842" loading="lazy" decoding="async">
           <p class="caption">Condition 2: Digital Screen Agent</p>
         </div>
       </div>
@@ -390,6 +397,7 @@
 <footer class="site-footer" id="site-footer"></footer>
 
 <script>const ROOT = '../';</script>
-<script src="../js/partials.js"></script>
+<script src="../js/partials.js" defer></script>
+<script src="../js/transition.js" defer></script>
 </body>
 </html>

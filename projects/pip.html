@@ -4,7 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PIP — Autonomous EV Charging — Fion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap"></noscript>
+<link rel="preload" as="image" href="../assets/images/web/hero-ev-bg.webp" fetchpriority="high">
 <link rel="stylesheet" href="../css/style.css">
+<!-- page wipe: arrive covered if we came from a wipe (js/transition.js) -->
+<script>try{if(sessionStorage.getItem('fion-wipe')&&!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('wipe-pending')}catch(e){}</script>
 </head>
 <body>
 
@@ -12,7 +19,7 @@
 
 <main id="main">
   <section class="case-hero">
-    <div class="case-hero-bg" style="background-image:url('../assets/images/hero-ev-bg.png');"></div>
+    <div class="case-hero-bg" style="background-image:url('../assets/images/web/hero-ev-bg.webp');"></div>
     <div class="container case-narrow">
       <h1 class="case-title">The Future of Autonomous Urban EV Charging</h1>
       <p class="case-subtitle">Designing a mobile, autonomous charging pod to eliminate fixed-bay congestion in Singapore's dense carparks.</p>
@@ -86,19 +93,19 @@
 
       <div class="image-grid cols-2">
         <div>
-          <img src="../assets/images/pip-mantaray-sketch.png" alt="Manta ray form sketches" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;background:#fff;">
+          <img src="../assets/images/web/pip-mantaray-sketch.webp" alt="Manta ray form sketches" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;background:#fff;" width="460" height="347" loading="lazy" decoding="async">
           <p class="caption">Manta ray form sketches</p>
         </div>
         <div>
-          <img src="../assets/images/pip-silhouette-exploration.png" alt="Early silhouette exploration" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;background:#fff;">
+          <img src="../assets/images/web/pip-silhouette-exploration.webp" alt="Early silhouette exploration" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;background:#fff;" width="470" height="348" loading="lazy" decoding="async">
           <p class="caption">Early silhouette exploration</p>
         </div>
         <div>
-          <img src="../assets/images/pip-docking-sketch.png" alt="Docking mechanism storyboard" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;background:#fff;">
+          <img src="../assets/images/web/pip-docking-sketch.webp" alt="Docking mechanism storyboard" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;background:#fff;" width="986" height="337" loading="lazy" decoding="async">
           <p class="caption">Docking mechanism storyboard</p>
         </div>
         <div>
-          <img src="../assets/images/pip-chassis-layout.png" alt="Chassis layout & dimensions" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;background:#fff;">
+          <img src="../assets/images/web/pip-chassis-layout.webp" alt="Chassis layout & dimensions" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;background:#fff;" width="943" height="427" loading="lazy" decoding="async">
           <p class="caption">Chassis layout & dimensions</p>
         </div>
       </div>
@@ -118,19 +125,19 @@
 
       <div class="image-grid cols-2">
         <div>
-          <img src="../assets/images/pip-form-sketch.png" alt="Form exploration sketch" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;background:#fff;">
+          <img src="../assets/images/web/pip-form-sketch.webp" alt="Form exploration sketch" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;background:#fff;" width="392" height="308" loading="lazy" decoding="async">
           <p class="caption">Form exploration sketch</p>
         </div>
         <div>
-          <img src="../assets/images/pip-iteration-sketches.png" alt="Iteration sketches exploring chassis and handle mechanics" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;background:#fff;">
+          <img src="../assets/images/web/pip-iteration-sketches.webp" alt="Iteration sketches exploring chassis and handle mechanics" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;background:#fff;" width="586" height="484" loading="lazy" decoding="async">
           <p class="caption">Iteration sketches</p>
         </div>
         <div>
-          <img src="../assets/images/pip-3d-blockout.png" alt="CAD 3D block-out model in Fusion 360" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;background:#fff;">
+          <img src="../assets/images/web/pip-3d-blockout.webp" alt="CAD 3D block-out model in Fusion 360" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;background:#fff;" width="392" height="308" loading="lazy" decoding="async">
           <p class="caption">3D CAD block-out</p>
         </div>
         <div>
-          <img src="../assets/images/pip-final-chassis-render.png" alt="High-fidelity 3D render showing robotic arm mechanism, LED ring, and omnidirectional base" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;">
+          <img src="../assets/images/web/pip-final-chassis-render.webp" alt="High-fidelity 3D render showing robotic arm mechanism, LED ring, and omnidirectional base" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;" width="546" height="511" loading="lazy" decoding="async">
           <p class="caption">Final form render with robotic arm & LED ring</p>
         </div>
         
@@ -165,11 +172,11 @@
 
       <div class="image-grid cols-2">
         <div>
-          <img src="../assets/images/pip-exploded-view.png" alt="Exploded assembly view showing internal robotic arm, chassis, and battery placement" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;background:#fff;">
+          <img src="../assets/images/web/pip-exploded-view.webp" alt="Exploded assembly view showing internal robotic arm, chassis, and battery placement" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;background:#fff;" width="575" height="933" loading="lazy" decoding="async">
           <p class="caption">Exploded CAD assembly breakdown</p>
         </div>
         <div>
-          <img src="../assets/images/pip-multi-angle-renders.png" alt="Multi-angle orthographic renders showing LED interface and top status display" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;">
+          <img src="../assets/images/web/pip-multi-angle-renders.webp" alt="Multi-angle orthographic renders showing LED interface and top status display" style="border-radius:var(--radius-sm);border:1px solid var(--border);width:100%;" width="471" height="933" loading="lazy" decoding="async">
           <p class="caption">Multi-angle lighting & chassis renders</p>
         </div>
       </div>
@@ -181,16 +188,34 @@
     <div class="container case-narrow">
       <h2 class="case-section-title">Autonomous Docking Demonstration</h2>
       <div style="margin-top:20px;">
-        <video 
-          controls 
-          autoplay 
-          loop 
-          muted 
-          playsinline 
-          style="width:100%; border-radius:var(--radius-sm); border:1px solid var(--border); display:block;">
-          <source src="../assets/videos/pip-demo.mp4" type="video/mp4">
+        <!-- Compressed 720p copy (~5 MB). Nothing downloads until it scrolls into
+             view; then it plays muted on loop (not with reduced motion). -->
+        <video
+          class="lazy-video"
+          controls
+          loop
+          muted
+          playsinline
+          preload="none"
+          width="1280" height="720"
+          poster="../assets/videos/pip-demo-poster.webp"
+          style="width:100%; height:auto; aspect-ratio:16/9; border-radius:var(--radius-sm); border:1px solid var(--border); display:block; background:#000;">
+          <source src="../assets/videos/pip-demo-720.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
+        <script>
+          (function () {
+            var v = document.querySelector('.lazy-video');
+            if (!v || !('IntersectionObserver' in window)) return;
+            var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            new IntersectionObserver(function (entries) {
+              entries.forEach(function (e) {
+                if (e.isIntersecting && !calm) v.play().catch(function () {});
+                else if (!e.isIntersecting) v.pause();
+              });
+            }, { threshold: 0.4 }).observe(v);
+          })();
+        </script>
         <p class="caption" style="text-align:center; margin-top:10px;">Simulation of PIP's autonomous alignment, swerve-drive navigation, and robotic arm charging sequence</p>
       </div>
     </div>
@@ -234,6 +259,7 @@
 <footer class="site-footer" id="site-footer"></footer>
 
 <script>const ROOT = '../';</script>
-<script src="../js/partials.js"></script>
+<script src="../js/partials.js" defer></script>
+<script src="../js/transition.js" defer></script>
 </body>
 </html>

@@ -100,18 +100,18 @@
       if (paused()) return;
       const past = window.scrollY > hero.offsetHeight * 0.4;
       if (past && !fallen) {
-        fallen = true;
+        fallen = true;
         setPose('falling');
         mascot.classList.add('is-gone');
         document.body.classList.add('mascot-landed');
       } else if (!past && fallen) {
-        fallen = false;
+        fallen = false;
         mascot.classList.remove('is-gone');
         document.body.classList.remove('mascot-landed');
         setPose('standing');
       }
     }, { passive: true });
-
+
     wake();
   }
 })();
